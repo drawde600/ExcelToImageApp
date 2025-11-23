@@ -28,555 +28,703 @@ namespace ExcelToImageApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabMain = new System.Windows.Forms.TabPage();
-            this.mainLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.lblExcelFile = new System.Windows.Forms.Label();
-            this.txtFilePath = new System.Windows.Forms.TextBox();
-            this.btnBrowseFile = new System.Windows.Forms.Button();
-            this.lblBaseFolder = new System.Windows.Forms.Label();
-            this.txtBaseFolder = new System.Windows.Forms.TextBox();
-            this.btnBrowseBase = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.btnGenerateAll = new System.Windows.Forms.Button();
-            this.grpSummary = new System.Windows.Forms.GroupBox();
-            this.lblMainClassSummary = new System.Windows.Forms.Label();
-            this.lblMainGroupSummary = new System.Windows.Forms.Label();
-            this.lblLog = new System.Windows.Forms.Label();
-            this.rtbLog = new System.Windows.Forms.RichTextBox();
-            this.tabClass = new System.Windows.Forms.TabPage();
-            this.classLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.classTopPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnGenerateClass = new System.Windows.Forms.Button();
-            this.chkSelectAllClass = new System.Windows.Forms.CheckBox();
-            this.chkDeselectAllClass = new System.Windows.Forms.CheckBox();
-            this.lblOutputFolderClass = new System.Windows.Forms.Label();
-            this.txtOutputFolderClass = new System.Windows.Forms.TextBox();
-            this.btnBrowseOutputClass = new System.Windows.Forms.Button();
-            this.lblClassSummary = new System.Windows.Forms.Label();
-            this.clbClasses = new System.Windows.Forms.CheckedListBox();
-            this.tabGroup = new System.Windows.Forms.TabPage();
-            this.groupLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.groupTopPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnGenerateGroup = new System.Windows.Forms.Button();
-            this.chkSelectAllGroup = new System.Windows.Forms.CheckBox();
-            this.chkDeselectAllGroup = new System.Windows.Forms.CheckBox();
-            this.lblOutputFolderGroup = new System.Windows.Forms.Label();
-            this.txtOutputFolderGroup = new System.Windows.Forms.TextBox();
-            this.btnBrowseOutputGroup = new System.Windows.Forms.Button();
-            this.lblGroupSummary = new System.Windows.Forms.Label();
-            this.clbGroups = new System.Windows.Forms.CheckedListBox();
-            this.tabStudent = new System.Windows.Forms.TabPage();
-            this.tabStaff = new System.Windows.Forms.TabPage();
-            this.tabCCA = new System.Windows.Forms.TabPage();
-            this.tabControl.SuspendLayout();
-            this.tabMain.SuspendLayout();
-            this.mainLayout.SuspendLayout();
-            this.grpSummary.SuspendLayout();
-            this.tabClass.SuspendLayout();
-            this.classLayout.SuspendLayout();
-            this.classTopPanel.SuspendLayout();
-            this.tabGroup.SuspendLayout();
-            this.groupLayout.SuspendLayout();
-            this.groupTopPanel.SuspendLayout();
-            this.SuspendLayout();
+            tabControl = new TabControl();
+            tabMain = new TabPage();
+            mainLayout = new TableLayoutPanel();
+            lblExcelFile = new Label();
+            txtFilePath = new TextBox();
+            btnBrowseFile = new Button();
+            lblBaseFolder = new Label();
+            txtBaseFolder = new TextBox();
+            btnBrowseBase = new Button();
+            btnLoad = new Button();
+            btnGenerateAll = new Button();
+            grpSummary = new GroupBox();
+            lblMainClassSummary = new Label();
+            lblMainGroupSummary = new Label();
+            lblMainCCASummary = new Label();
+            lblLog = new Label();
+            rtbLog = new RichTextBox();
+            tabClass = new TabPage();
+            classLayout = new TableLayoutPanel();
+            classTopPanel = new FlowLayoutPanel();
+            btnGenerateClass = new Button();
+            chkSelectAllClass = new CheckBox();
+            chkDeselectAllClass = new CheckBox();
+            lblOutputFolderClass = new Label();
+            txtOutputFolderClass = new TextBox();
+            btnBrowseOutputClass = new Button();
+            lblClassSummary = new Label();
+            clbClasses = new CheckedListBox();
+            tabGroup = new TabPage();
+            groupLayout = new TableLayoutPanel();
+            groupTopPanel = new FlowLayoutPanel();
+            btnGenerateGroup = new Button();
+            chkSelectAllGroup = new CheckBox();
+            chkDeselectAllGroup = new CheckBox();
+            lblOutputFolderGroup = new Label();
+            txtOutputFolderGroup = new TextBox();
+            btnBrowseOutputGroup = new Button();
+            lblGroupSummary = new Label();
+            clbGroups = new CheckedListBox();
+            tabStudent = new TabPage();
+            tabStaff = new TabPage();
+            tabCCA = new TabPage();
+            ccaLayout = new TableLayoutPanel();
+            ccaTopPanel = new FlowLayoutPanel();
+            btnGenerateCCA = new Button();
+            chkSelectAllCCA = new CheckBox();
+            chkDeselectAllCCA = new CheckBox();
+            lblOutputFolderCCA = new Label();
+            txtOutputFolderCCA = new TextBox();
+            btnBrowseOutputCCA = new Button();
+            lblCCASummary = new Label();
+            clbCCAs = new CheckedListBox();
+            tabControl.SuspendLayout();
+            tabMain.SuspendLayout();
+            mainLayout.SuspendLayout();
+            grpSummary.SuspendLayout();
+            tabClass.SuspendLayout();
+            classLayout.SuspendLayout();
+            classTopPanel.SuspendLayout();
+            tabGroup.SuspendLayout();
+            groupLayout.SuspendLayout();
+            groupTopPanel.SuspendLayout();
+            tabCCA.SuspendLayout();
+            ccaLayout.SuspendLayout();
+            ccaTopPanel.SuspendLayout();
+            SuspendLayout();
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabMain);
-            this.tabControl.Controls.Add(this.tabClass);
-            this.tabControl.Controls.Add(this.tabGroup);
-            this.tabControl.Controls.Add(this.tabStudent);
-            this.tabControl.Controls.Add(this.tabStaff);
-            this.tabControl.Controls.Add(this.tabCCA);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(800, 600);
-            this.tabControl.TabIndex = 0;
+            tabControl.Controls.Add(tabMain);
+            tabControl.Controls.Add(tabClass);
+            tabControl.Controls.Add(tabGroup);
+            tabControl.Controls.Add(tabStudent);
+            tabControl.Controls.Add(tabStaff);
+            tabControl.Controls.Add(tabCCA);
+            tabControl.Dock = DockStyle.Fill;
+            tabControl.Location = new Point(0, 0);
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
+            tabControl.Size = new Size(800, 600);
+            tabControl.TabIndex = 0;
             // 
             // tabMain
             // 
-            this.tabMain.Controls.Add(this.mainLayout);
-            this.tabMain.Location = new System.Drawing.Point(4, 24);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(792, 572);
-            this.tabMain.TabIndex = 0;
-            this.tabMain.Text = "Main";
-            this.tabMain.UseVisualStyleBackColor = true;
+            tabMain.Controls.Add(mainLayout);
+            tabMain.Location = new Point(4, 24);
+            tabMain.Name = "tabMain";
+            tabMain.Padding = new Padding(3);
+            tabMain.Size = new Size(792, 572);
+            tabMain.TabIndex = 0;
+            tabMain.Text = "Main";
+            tabMain.UseVisualStyleBackColor = true;
             // 
             // mainLayout
             // 
-            this.mainLayout.ColumnCount = 3;
-            this.mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.mainLayout.Controls.Add(this.lblExcelFile, 0, 0);
-            this.mainLayout.Controls.Add(this.txtFilePath, 1, 0);
-            this.mainLayout.Controls.Add(this.btnBrowseFile, 2, 0);
-            this.mainLayout.Controls.Add(this.lblBaseFolder, 0, 1);
-            this.mainLayout.Controls.Add(this.txtBaseFolder, 1, 1);
-            this.mainLayout.Controls.Add(this.btnBrowseBase, 2, 1);
-            this.mainLayout.Controls.Add(this.btnLoad, 1, 2);
-            this.mainLayout.Controls.Add(this.btnGenerateAll, 2, 2);
-            this.mainLayout.Controls.Add(this.grpSummary, 0, 3);
-            this.mainLayout.Controls.Add(this.lblLog, 0, 4);
-            this.mainLayout.Controls.Add(this.rtbLog, 0, 5);
-            this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainLayout.Location = new System.Drawing.Point(3, 3);
-            this.mainLayout.Name = "mainLayout";
-            this.mainLayout.Padding = new System.Windows.Forms.Padding(20);
-            this.mainLayout.RowCount = 6;
-            this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainLayout.Size = new System.Drawing.Size(786, 566);
-            this.mainLayout.TabIndex = 0;
+            mainLayout.ColumnCount = 3;
+            mainLayout.ColumnStyles.Add(new ColumnStyle());
+            mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            mainLayout.ColumnStyles.Add(new ColumnStyle());
+            mainLayout.Controls.Add(lblExcelFile, 0, 0);
+            mainLayout.Controls.Add(txtFilePath, 1, 0);
+            mainLayout.Controls.Add(btnBrowseFile, 2, 0);
+            mainLayout.Controls.Add(lblBaseFolder, 0, 1);
+            mainLayout.Controls.Add(txtBaseFolder, 1, 1);
+            mainLayout.Controls.Add(btnBrowseBase, 2, 1);
+            mainLayout.Controls.Add(btnLoad, 1, 2);
+            mainLayout.Controls.Add(btnGenerateAll, 2, 2);
+            mainLayout.Controls.Add(grpSummary, 0, 3);
+            mainLayout.Controls.Add(lblLog, 0, 4);
+            mainLayout.Controls.Add(rtbLog, 0, 5);
+            mainLayout.Dock = DockStyle.Fill;
+            mainLayout.Location = new Point(3, 3);
+            mainLayout.Name = "mainLayout";
+            mainLayout.Padding = new Padding(20);
+            mainLayout.RowCount = 6;
+            mainLayout.RowStyles.Add(new RowStyle());
+            mainLayout.RowStyles.Add(new RowStyle());
+            mainLayout.RowStyles.Add(new RowStyle());
+            mainLayout.RowStyles.Add(new RowStyle());
+            mainLayout.RowStyles.Add(new RowStyle());
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            mainLayout.Size = new Size(786, 566);
+            mainLayout.TabIndex = 0;
             // 
             // lblExcelFile
             // 
-            this.lblExcelFile.AutoSize = true;
-            this.lblExcelFile.Location = new System.Drawing.Point(23, 20);
-            this.lblExcelFile.Name = "lblExcelFile";
-            this.lblExcelFile.Size = new System.Drawing.Size(55, 15);
-            this.lblExcelFile.TabIndex = 0;
-            this.lblExcelFile.Text = "Excel File:";
+            lblExcelFile.AutoSize = true;
+            lblExcelFile.Location = new Point(23, 20);
+            lblExcelFile.Name = "lblExcelFile";
+            lblExcelFile.Size = new Size(57, 15);
+            lblExcelFile.TabIndex = 0;
+            lblExcelFile.Text = "Excel File:";
             // 
             // txtFilePath
             // 
-            this.txtFilePath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFilePath.Location = new System.Drawing.Point(84, 23);
-            this.txtFilePath.Name = "txtFilePath";
-            this.txtFilePath.Size = new System.Drawing.Size(604, 23);
-            this.txtFilePath.TabIndex = 1;
-            this.txtFilePath.DoubleClick += new System.EventHandler(this.TxtFilePath_DoubleClick);
+            txtFilePath.Dock = DockStyle.Fill;
+            txtFilePath.Location = new Point(99, 23);
+            txtFilePath.Name = "txtFilePath";
+            txtFilePath.Size = new Size(558, 23);
+            txtFilePath.TabIndex = 1;
+            txtFilePath.DoubleClick += TxtFilePath_DoubleClick;
             // 
             // btnBrowseFile
             // 
-            this.btnBrowseFile.AutoSize = true;
-            this.btnBrowseFile.Location = new System.Drawing.Point(694, 23);
-            this.btnBrowseFile.Name = "btnBrowseFile";
-            this.btnBrowseFile.Size = new System.Drawing.Size(69, 25);
-            this.btnBrowseFile.TabIndex = 2;
-            this.btnBrowseFile.Text = "Browse";
-            this.btnBrowseFile.UseVisualStyleBackColor = true;
-            this.btnBrowseFile.Click += new System.EventHandler(this.BtnBrowseFile_Click);
+            btnBrowseFile.AutoSize = true;
+            btnBrowseFile.Location = new Point(663, 23);
+            btnBrowseFile.Name = "btnBrowseFile";
+            btnBrowseFile.Size = new Size(69, 25);
+            btnBrowseFile.TabIndex = 2;
+            btnBrowseFile.Text = "Browse";
+            btnBrowseFile.UseVisualStyleBackColor = true;
+            btnBrowseFile.Click += BtnBrowseFile_Click;
             // 
             // lblBaseFolder
             // 
-            this.lblBaseFolder.AutoSize = true;
-            this.lblBaseFolder.Location = new System.Drawing.Point(23, 51);
-            this.lblBaseFolder.Name = "lblBaseFolder";
-            this.lblBaseFolder.Size = new System.Drawing.Size(70, 15);
-            this.lblBaseFolder.TabIndex = 3;
-            this.lblBaseFolder.Text = "Base Folder:";
+            lblBaseFolder.AutoSize = true;
+            lblBaseFolder.Location = new Point(23, 51);
+            lblBaseFolder.Name = "lblBaseFolder";
+            lblBaseFolder.Size = new Size(70, 15);
+            lblBaseFolder.TabIndex = 3;
+            lblBaseFolder.Text = "Base Folder:";
             // 
             // txtBaseFolder
             // 
-            this.txtBaseFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtBaseFolder.Location = new System.Drawing.Point(99, 54);
-            this.txtBaseFolder.Name = "txtBaseFolder";
-            this.txtBaseFolder.Size = new System.Drawing.Size(589, 23);
-            this.txtBaseFolder.TabIndex = 4;
+            txtBaseFolder.Dock = DockStyle.Fill;
+            txtBaseFolder.Location = new Point(99, 54);
+            txtBaseFolder.Name = "txtBaseFolder";
+            txtBaseFolder.Size = new Size(558, 23);
+            txtBaseFolder.TabIndex = 4;
             // 
             // btnBrowseBase
             // 
-            this.btnBrowseBase.AutoSize = true;
-            this.btnBrowseBase.Location = new System.Drawing.Point(694, 54);
-            this.btnBrowseBase.Name = "btnBrowseBase";
-            this.btnBrowseBase.Size = new System.Drawing.Size(69, 25);
-            this.btnBrowseBase.TabIndex = 5;
-            this.btnBrowseBase.Text = "Browse";
-            this.btnBrowseBase.UseVisualStyleBackColor = true;
-            this.btnBrowseBase.Click += new System.EventHandler(this.BtnBrowseBase_Click);
+            btnBrowseBase.AutoSize = true;
+            btnBrowseBase.Location = new Point(663, 54);
+            btnBrowseBase.Name = "btnBrowseBase";
+            btnBrowseBase.Size = new Size(69, 25);
+            btnBrowseBase.TabIndex = 5;
+            btnBrowseBase.Text = "Browse";
+            btnBrowseBase.UseVisualStyleBackColor = true;
+            btnBrowseBase.Click += BtnBrowseBase_Click;
             // 
             // btnLoad
             // 
-            this.btnLoad.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLoad.Location = new System.Drawing.Point(99, 85);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(589, 40);
-            this.btnLoad.TabIndex = 6;
-            this.btnLoad.Text = "Load Data";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.BtnLoad_Click);
+            btnLoad.Dock = DockStyle.Top;
+            btnLoad.Location = new Point(99, 85);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(558, 40);
+            btnLoad.TabIndex = 6;
+            btnLoad.Text = "Load Data";
+            btnLoad.UseVisualStyleBackColor = true;
+            btnLoad.Click += BtnLoad_Click;
             // 
             // btnGenerateAll
             // 
-            this.btnGenerateAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnGenerateAll.Location = new System.Drawing.Point(694, 85);
-            this.btnGenerateAll.Name = "btnGenerateAll";
-            this.btnGenerateAll.Size = new System.Drawing.Size(100, 40);
-            this.btnGenerateAll.TabIndex = 10;
-            this.btnGenerateAll.Text = "Generate All";
-            this.btnGenerateAll.UseVisualStyleBackColor = true;
-            this.btnGenerateAll.Click += new System.EventHandler(this.BtnGenerateAll_Click);
+            btnGenerateAll.Dock = DockStyle.Top;
+            btnGenerateAll.Location = new Point(663, 85);
+            btnGenerateAll.Name = "btnGenerateAll";
+            btnGenerateAll.Size = new Size(100, 40);
+            btnGenerateAll.TabIndex = 10;
+            btnGenerateAll.Text = "Generate All";
+            btnGenerateAll.UseVisualStyleBackColor = true;
+            btnGenerateAll.Click += BtnGenerateAll_Click;
             // 
             // grpSummary
             // 
-            this.mainLayout.SetColumnSpan(this.grpSummary, 3);
-            this.grpSummary.Controls.Add(this.lblMainClassSummary);
-            this.grpSummary.Controls.Add(this.lblMainGroupSummary);
-            this.grpSummary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpSummary.Location = new System.Drawing.Point(23, 131);
-            this.grpSummary.Name = "grpSummary";
-            this.grpSummary.Size = new System.Drawing.Size(740, 50);
-            this.grpSummary.TabIndex = 9;
-            this.grpSummary.TabStop = false;
-            this.grpSummary.Text = "Data Summary";
+            mainLayout.SetColumnSpan(grpSummary, 3);
+            grpSummary.Controls.Add(lblMainClassSummary);
+            grpSummary.Controls.Add(lblMainGroupSummary);
+            grpSummary.Controls.Add(lblMainCCASummary);
+            grpSummary.Dock = DockStyle.Fill;
+            grpSummary.Location = new Point(23, 131);
+            grpSummary.Name = "grpSummary";
+            grpSummary.Size = new Size(740, 50);
+            grpSummary.TabIndex = 9;
+            grpSummary.TabStop = false;
+            grpSummary.Text = "Data Summary";
             // 
             // lblMainClassSummary
             // 
-            this.lblMainClassSummary.AutoSize = true;
-            this.lblMainClassSummary.Location = new System.Drawing.Point(10, 20);
-            this.lblMainClassSummary.Name = "lblMainClassSummary";
-            this.lblMainClassSummary.Size = new System.Drawing.Size(120, 15);
-            this.lblMainClassSummary.TabIndex = 0;
-            this.lblMainClassSummary.Text = "Class: 0 items (0 selected)";
+            lblMainClassSummary.AutoSize = true;
+            lblMainClassSummary.Location = new Point(10, 20);
+            lblMainClassSummary.Name = "lblMainClassSummary";
+            lblMainClassSummary.Size = new Size(141, 15);
+            lblMainClassSummary.TabIndex = 0;
+            lblMainClassSummary.Text = "Class: 0 items (0 selected)";
             // 
             // lblMainGroupSummary
             // 
-            this.lblMainGroupSummary.AutoSize = true;
-            this.lblMainGroupSummary.Location = new System.Drawing.Point(200, 20);
-            this.lblMainGroupSummary.Name = "lblMainGroupSummary";
-            this.lblMainGroupSummary.Size = new System.Drawing.Size(120, 15);
-            this.lblMainGroupSummary.TabIndex = 1;
-            this.lblMainGroupSummary.Text = "Group: 0 items (0 selected)";
+            lblMainGroupSummary.AutoSize = true;
+            lblMainGroupSummary.Location = new Point(200, 20);
+            lblMainGroupSummary.Name = "lblMainGroupSummary";
+            lblMainGroupSummary.Size = new Size(147, 15);
+            lblMainGroupSummary.TabIndex = 1;
+            lblMainGroupSummary.Text = "Group: 0 items (0 selected)";
+            // 
+            // lblMainCCASummary
+            // 
+            lblMainCCASummary.AutoSize = true;
+            lblMainCCASummary.Location = new Point(400, 20);
+            lblMainCCASummary.Name = "lblMainCCASummary";
+            lblMainCCASummary.Size = new Size(138, 15);
+            lblMainCCASummary.TabIndex = 2;
+            lblMainCCASummary.Text = "CCA: 0 items (0 selected)";
             // 
             // lblLog
             // 
-            this.lblLog.AutoSize = true;
-            this.lblLog.Location = new System.Drawing.Point(23, 184);
-            this.lblLog.Name = "lblLog";
-            this.lblLog.Size = new System.Drawing.Size(30, 15);
-            this.lblLog.TabIndex = 7;
-            this.lblLog.Text = "Log:";
+            lblLog.AutoSize = true;
+            lblLog.Location = new Point(23, 184);
+            lblLog.Name = "lblLog";
+            lblLog.Size = new Size(30, 15);
+            lblLog.TabIndex = 7;
+            lblLog.Text = "Log:";
             // 
             // rtbLog
             // 
-            this.mainLayout.SetColumnSpan(this.rtbLog, 3);
-            this.rtbLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbLog.Location = new System.Drawing.Point(23, 202);
-            this.rtbLog.Name = "rtbLog";
-            this.rtbLog.Size = new System.Drawing.Size(740, 341);
-            this.rtbLog.TabIndex = 8;
-            this.rtbLog.Text = "";
+            mainLayout.SetColumnSpan(rtbLog, 3);
+            rtbLog.Dock = DockStyle.Fill;
+            rtbLog.Location = new Point(23, 202);
+            rtbLog.Name = "rtbLog";
+            rtbLog.Size = new Size(740, 341);
+            rtbLog.TabIndex = 8;
+            rtbLog.Text = "";
             // 
             // tabClass
             // 
-            this.tabClass.Controls.Add(this.classLayout);
-            this.tabClass.Location = new System.Drawing.Point(4, 24);
-            this.tabClass.Name = "tabClass";
-            this.tabClass.Padding = new System.Windows.Forms.Padding(3);
-            this.tabClass.Size = new System.Drawing.Size(792, 572);
-            this.tabClass.TabIndex = 1;
-            this.tabClass.Text = "Class";
-            this.tabClass.UseVisualStyleBackColor = true;
+            tabClass.Controls.Add(classLayout);
+            tabClass.Location = new Point(4, 24);
+            tabClass.Name = "tabClass";
+            tabClass.Padding = new Padding(3);
+            tabClass.Size = new Size(792, 572);
+            tabClass.TabIndex = 1;
+            tabClass.Text = "Class";
+            tabClass.UseVisualStyleBackColor = true;
             // 
             // classLayout
             // 
-            this.classLayout.ColumnCount = 2;
-            this.classLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.classLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.classLayout.Controls.Add(this.classTopPanel, 0, 0);
-            this.classLayout.Controls.Add(this.clbClasses, 0, 1);
-            this.classLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.classLayout.Location = new System.Drawing.Point(3, 3);
-            this.classLayout.Name = "classLayout";
-            this.classLayout.Padding = new System.Windows.Forms.Padding(10);
-            this.classLayout.RowCount = 3;
-            this.classLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.classLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.classLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.classLayout.Size = new System.Drawing.Size(786, 566);
-            this.classLayout.TabIndex = 0;
+            classLayout.ColumnCount = 2;
+            classLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            classLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            classLayout.Controls.Add(classTopPanel, 0, 0);
+            classLayout.Controls.Add(clbClasses, 0, 1);
+            classLayout.Dock = DockStyle.Fill;
+            classLayout.Location = new Point(3, 3);
+            classLayout.Name = "classLayout";
+            classLayout.Padding = new Padding(10);
+            classLayout.RowCount = 3;
+            classLayout.RowStyles.Add(new RowStyle());
+            classLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            classLayout.RowStyles.Add(new RowStyle());
+            classLayout.Size = new Size(786, 566);
+            classLayout.TabIndex = 0;
             // 
             // classTopPanel
             // 
-            this.classTopPanel.AutoSize = true;
-            this.classLayout.SetColumnSpan(this.classTopPanel, 2);
-            this.classTopPanel.Controls.Add(this.btnGenerateClass);
-            this.classTopPanel.Controls.Add(this.chkSelectAllClass);
-            this.classTopPanel.Controls.Add(this.chkDeselectAllClass);
-            this.classTopPanel.Controls.Add(this.lblOutputFolderClass);
-            this.classTopPanel.Controls.Add(this.txtOutputFolderClass);
-            this.classTopPanel.Controls.Add(this.btnBrowseOutputClass);
-            this.classTopPanel.Controls.Add(this.lblClassSummary);
-            this.classTopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.classTopPanel.Location = new System.Drawing.Point(13, 13);
-            this.classTopPanel.Name = "classTopPanel";
-            this.classTopPanel.Size = new System.Drawing.Size(760, 51);
-            this.classTopPanel.TabIndex = 0;
+            classTopPanel.AutoSize = true;
+            classLayout.SetColumnSpan(classTopPanel, 2);
+            classTopPanel.Controls.Add(btnGenerateClass);
+            classTopPanel.Controls.Add(chkSelectAllClass);
+            classTopPanel.Controls.Add(chkDeselectAllClass);
+            classTopPanel.Controls.Add(lblOutputFolderClass);
+            classTopPanel.Controls.Add(txtOutputFolderClass);
+            classTopPanel.Controls.Add(btnBrowseOutputClass);
+            classTopPanel.Controls.Add(lblClassSummary);
+            classTopPanel.Dock = DockStyle.Fill;
+            classTopPanel.Location = new Point(13, 13);
+            classTopPanel.Name = "classTopPanel";
+            classTopPanel.Size = new Size(760, 51);
+            classTopPanel.TabIndex = 0;
             // 
             // btnGenerateClass
             // 
-            this.btnGenerateClass.AutoSize = true;
-            this.btnGenerateClass.Location = new System.Drawing.Point(3, 3);
-            this.btnGenerateClass.Name = "btnGenerateClass";
-            this.btnGenerateClass.Size = new System.Drawing.Size(106, 25);
-            this.btnGenerateClass.TabIndex = 0;
-            this.btnGenerateClass.Text = "Generate Images";
-            this.btnGenerateClass.UseVisualStyleBackColor = true;
-            this.btnGenerateClass.Click += new System.EventHandler(this.BtnGenerateClass_Click);
+            btnGenerateClass.AutoSize = true;
+            btnGenerateClass.Location = new Point(3, 3);
+            btnGenerateClass.Name = "btnGenerateClass";
+            btnGenerateClass.Size = new Size(106, 25);
+            btnGenerateClass.TabIndex = 0;
+            btnGenerateClass.Text = "Generate Images";
+            btnGenerateClass.UseVisualStyleBackColor = true;
+            btnGenerateClass.Click += BtnGenerateClass_Click;
             // 
             // chkSelectAllClass
             // 
-            this.chkSelectAllClass.AutoSize = true;
-            this.chkSelectAllClass.Checked = true;
-            this.chkSelectAllClass.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSelectAllClass.Location = new System.Drawing.Point(115, 3);
-            this.chkSelectAllClass.Name = "chkSelectAllClass";
-            this.chkSelectAllClass.Size = new System.Drawing.Size(74, 19);
-            this.chkSelectAllClass.TabIndex = 1;
-            this.chkSelectAllClass.Text = "Select All";
-            this.chkSelectAllClass.UseVisualStyleBackColor = true;
-            this.chkSelectAllClass.Click += new System.EventHandler(this.ChkSelectAllClass_Click);
+            chkSelectAllClass.AutoSize = true;
+            chkSelectAllClass.Checked = true;
+            chkSelectAllClass.CheckState = CheckState.Checked;
+            chkSelectAllClass.Location = new Point(115, 3);
+            chkSelectAllClass.Name = "chkSelectAllClass";
+            chkSelectAllClass.Size = new Size(74, 19);
+            chkSelectAllClass.TabIndex = 1;
+            chkSelectAllClass.Text = "Select All";
+            chkSelectAllClass.UseVisualStyleBackColor = true;
+            chkSelectAllClass.Click += ChkSelectAllClass_Click;
             // 
             // chkDeselectAllClass
             // 
-            this.chkDeselectAllClass.AutoSize = true;
-            this.chkDeselectAllClass.Location = new System.Drawing.Point(195, 3);
-            this.chkDeselectAllClass.Name = "chkDeselectAllClass";
-            this.chkDeselectAllClass.Size = new System.Drawing.Size(87, 19);
-            this.chkDeselectAllClass.TabIndex = 2;
-            this.chkDeselectAllClass.Text = "Deselect All";
-            this.chkDeselectAllClass.UseVisualStyleBackColor = true;
-            this.chkDeselectAllClass.Click += new System.EventHandler(this.ChkDeselectAllClass_Click);
+            chkDeselectAllClass.AutoSize = true;
+            chkDeselectAllClass.Location = new Point(195, 3);
+            chkDeselectAllClass.Name = "chkDeselectAllClass";
+            chkDeselectAllClass.Size = new Size(87, 19);
+            chkDeselectAllClass.TabIndex = 2;
+            chkDeselectAllClass.Text = "Deselect All";
+            chkDeselectAllClass.UseVisualStyleBackColor = true;
+            chkDeselectAllClass.Click += ChkDeselectAllClass_Click;
             // 
             // lblOutputFolderClass
             // 
-            this.lblOutputFolderClass.AutoSize = true;
-            this.lblOutputFolderClass.Location = new System.Drawing.Point(288, 0);
-            this.lblOutputFolderClass.Name = "lblOutputFolderClass";
-            this.lblOutputFolderClass.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.lblOutputFolderClass.Size = new System.Drawing.Size(84, 20);
-            this.lblOutputFolderClass.TabIndex = 3;
-            this.lblOutputFolderClass.Text = "Output Folder:";
+            lblOutputFolderClass.AutoSize = true;
+            lblOutputFolderClass.Location = new Point(288, 0);
+            lblOutputFolderClass.Name = "lblOutputFolderClass";
+            lblOutputFolderClass.Padding = new Padding(0, 5, 0, 0);
+            lblOutputFolderClass.Size = new Size(84, 20);
+            lblOutputFolderClass.TabIndex = 3;
+            lblOutputFolderClass.Text = "Output Folder:";
             // 
             // txtOutputFolderClass
             // 
-            this.txtOutputFolderClass.Location = new System.Drawing.Point(378, 3);
-            this.txtOutputFolderClass.Name = "txtOutputFolderClass";
-            this.txtOutputFolderClass.Size = new System.Drawing.Size(300, 23);
-            this.txtOutputFolderClass.TabIndex = 4;
+            txtOutputFolderClass.Location = new Point(378, 3);
+            txtOutputFolderClass.Name = "txtOutputFolderClass";
+            txtOutputFolderClass.Size = new Size(300, 23);
+            txtOutputFolderClass.TabIndex = 4;
             // 
             // btnBrowseOutputClass
             // 
-            this.btnBrowseOutputClass.Location = new System.Drawing.Point(684, 3);
-            this.btnBrowseOutputClass.Name = "btnBrowseOutputClass";
-            this.btnBrowseOutputClass.Size = new System.Drawing.Size(30, 23);
-            this.btnBrowseOutputClass.TabIndex = 5;
-            this.btnBrowseOutputClass.Text = "...";
-            this.btnBrowseOutputClass.UseVisualStyleBackColor = true;
-            this.btnBrowseOutputClass.Click += new System.EventHandler(this.BtnBrowseOutputClass_Click);
+            btnBrowseOutputClass.Location = new Point(684, 3);
+            btnBrowseOutputClass.Name = "btnBrowseOutputClass";
+            btnBrowseOutputClass.Size = new Size(30, 23);
+            btnBrowseOutputClass.TabIndex = 5;
+            btnBrowseOutputClass.Text = "...";
+            btnBrowseOutputClass.UseVisualStyleBackColor = true;
+            btnBrowseOutputClass.Click += BtnBrowseOutputClass_Click;
             // 
             // lblClassSummary
             // 
-            this.lblClassSummary.AutoSize = true;
-            this.lblClassSummary.Location = new System.Drawing.Point(3, 31);
-            this.lblClassSummary.Name = "lblClassSummary";
-            this.lblClassSummary.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.lblClassSummary.Size = new System.Drawing.Size(107, 20);
-            this.lblClassSummary.TabIndex = 6;
-            this.lblClassSummary.Text = "Total: 0, Selected: 0";
+            lblClassSummary.AutoSize = true;
+            lblClassSummary.Location = new Point(3, 31);
+            lblClassSummary.Name = "lblClassSummary";
+            lblClassSummary.Padding = new Padding(0, 5, 0, 0);
+            lblClassSummary.Size = new Size(107, 20);
+            lblClassSummary.TabIndex = 6;
+            lblClassSummary.Text = "Total: 0, Selected: 0";
             // 
             // clbClasses
             // 
-            this.clbClasses.CheckOnClick = true;
-            this.classLayout.SetColumnSpan(this.clbClasses, 2);
-            this.clbClasses.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clbClasses.FormattingEnabled = true;
-            this.clbClasses.Location = new System.Drawing.Point(13, 70);
-            this.clbClasses.Name = "clbClasses";
-            this.clbClasses.Size = new System.Drawing.Size(760, 483);
-            this.clbClasses.TabIndex = 1;
+            clbClasses.CheckOnClick = true;
+            clbClasses.Dock = DockStyle.Fill;
+            clbClasses.FormattingEnabled = true;
+            clbClasses.Location = new Point(13, 70);
+            clbClasses.Name = "clbClasses";
+            clbClasses.Size = new Size(377, 483);
+            clbClasses.TabIndex = 1;
             // 
             // tabGroup
             // 
-            this.tabGroup.Controls.Add(this.groupLayout);
-            this.tabGroup.Location = new System.Drawing.Point(4, 24);
-            this.tabGroup.Name = "tabGroup";
-            this.tabGroup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGroup.Size = new System.Drawing.Size(792, 572);
-            this.tabGroup.TabIndex = 2;
-            this.tabGroup.Text = "Group";
-            this.tabGroup.UseVisualStyleBackColor = true;
+            tabGroup.Controls.Add(groupLayout);
+            tabGroup.Location = new Point(4, 24);
+            tabGroup.Name = "tabGroup";
+            tabGroup.Padding = new Padding(3);
+            tabGroup.Size = new Size(792, 572);
+            tabGroup.TabIndex = 2;
+            tabGroup.Text = "Group";
+            tabGroup.UseVisualStyleBackColor = true;
             // 
             // groupLayout
             // 
-            this.groupLayout.ColumnCount = 2;
-            this.groupLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.groupLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.groupLayout.Controls.Add(this.groupTopPanel, 0, 0);
-            this.groupLayout.Controls.Add(this.clbGroups, 0, 1);
-            this.groupLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupLayout.Location = new System.Drawing.Point(3, 3);
-            this.groupLayout.Name = "groupLayout";
-            this.groupLayout.Padding = new System.Windows.Forms.Padding(10);
-            this.groupLayout.RowCount = 3;
-            this.groupLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.groupLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.groupLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.groupLayout.Size = new System.Drawing.Size(786, 566);
-            this.groupLayout.TabIndex = 0;
+            groupLayout.ColumnCount = 2;
+            groupLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            groupLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            groupLayout.Controls.Add(groupTopPanel, 0, 0);
+            groupLayout.Controls.Add(clbGroups, 0, 1);
+            groupLayout.Dock = DockStyle.Fill;
+            groupLayout.Location = new Point(3, 3);
+            groupLayout.Name = "groupLayout";
+            groupLayout.Padding = new Padding(10);
+            groupLayout.RowCount = 3;
+            groupLayout.RowStyles.Add(new RowStyle());
+            groupLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            groupLayout.RowStyles.Add(new RowStyle());
+            groupLayout.Size = new Size(786, 566);
+            groupLayout.TabIndex = 0;
             // 
             // groupTopPanel
             // 
-            this.groupTopPanel.AutoSize = true;
-            this.groupLayout.SetColumnSpan(this.groupTopPanel, 2);
-            this.groupTopPanel.Controls.Add(this.btnGenerateGroup);
-            this.groupTopPanel.Controls.Add(this.chkSelectAllGroup);
-            this.groupTopPanel.Controls.Add(this.chkDeselectAllGroup);
-            this.groupTopPanel.Controls.Add(this.lblOutputFolderGroup);
-            this.groupTopPanel.Controls.Add(this.txtOutputFolderGroup);
-            this.groupTopPanel.Controls.Add(this.btnBrowseOutputGroup);
-            this.groupTopPanel.Controls.Add(this.lblGroupSummary);
-            this.groupTopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupTopPanel.Location = new System.Drawing.Point(13, 13);
-            this.groupTopPanel.Name = "groupTopPanel";
-            this.groupTopPanel.Size = new System.Drawing.Size(760, 51);
-            this.groupTopPanel.TabIndex = 0;
+            groupTopPanel.AutoSize = true;
+            groupLayout.SetColumnSpan(groupTopPanel, 2);
+            groupTopPanel.Controls.Add(btnGenerateGroup);
+            groupTopPanel.Controls.Add(chkSelectAllGroup);
+            groupTopPanel.Controls.Add(chkDeselectAllGroup);
+            groupTopPanel.Controls.Add(lblOutputFolderGroup);
+            groupTopPanel.Controls.Add(txtOutputFolderGroup);
+            groupTopPanel.Controls.Add(btnBrowseOutputGroup);
+            groupTopPanel.Controls.Add(lblGroupSummary);
+            groupTopPanel.Dock = DockStyle.Fill;
+            groupTopPanel.Location = new Point(13, 13);
+            groupTopPanel.Name = "groupTopPanel";
+            groupTopPanel.Size = new Size(760, 51);
+            groupTopPanel.TabIndex = 0;
             // 
             // btnGenerateGroup
             // 
-            this.btnGenerateGroup.AutoSize = true;
-            this.btnGenerateGroup.Location = new System.Drawing.Point(3, 3);
-            this.btnGenerateGroup.Name = "btnGenerateGroup";
-            this.btnGenerateGroup.Size = new System.Drawing.Size(106, 25);
-            this.btnGenerateGroup.TabIndex = 0;
-            this.btnGenerateGroup.Text = "Generate Images";
-            this.btnGenerateGroup.UseVisualStyleBackColor = true;
-            this.btnGenerateGroup.Click += new System.EventHandler(this.BtnGenerateGroup_Click);
+            btnGenerateGroup.AutoSize = true;
+            btnGenerateGroup.Location = new Point(3, 3);
+            btnGenerateGroup.Name = "btnGenerateGroup";
+            btnGenerateGroup.Size = new Size(106, 25);
+            btnGenerateGroup.TabIndex = 0;
+            btnGenerateGroup.Text = "Generate Images";
+            btnGenerateGroup.UseVisualStyleBackColor = true;
+            btnGenerateGroup.Click += BtnGenerateGroup_Click;
             // 
             // chkSelectAllGroup
             // 
-            this.chkSelectAllGroup.AutoSize = true;
-            this.chkSelectAllGroup.Checked = true;
-            this.chkSelectAllGroup.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSelectAllGroup.Location = new System.Drawing.Point(115, 3);
-            this.chkSelectAllGroup.Name = "chkSelectAllGroup";
-            this.chkSelectAllGroup.Size = new System.Drawing.Size(74, 19);
-            this.chkSelectAllGroup.TabIndex = 1;
-            this.chkSelectAllGroup.Text = "Select All";
-            this.chkSelectAllGroup.UseVisualStyleBackColor = true;
-            this.chkSelectAllGroup.Click += new System.EventHandler(this.ChkSelectAllGroup_Click);
+            chkSelectAllGroup.AutoSize = true;
+            chkSelectAllGroup.Checked = true;
+            chkSelectAllGroup.CheckState = CheckState.Checked;
+            chkSelectAllGroup.Location = new Point(115, 3);
+            chkSelectAllGroup.Name = "chkSelectAllGroup";
+            chkSelectAllGroup.Size = new Size(74, 19);
+            chkSelectAllGroup.TabIndex = 1;
+            chkSelectAllGroup.Text = "Select All";
+            chkSelectAllGroup.UseVisualStyleBackColor = true;
+            chkSelectAllGroup.Click += ChkSelectAllGroup_Click;
             // 
             // chkDeselectAllGroup
             // 
-            this.chkDeselectAllGroup.AutoSize = true;
-            this.chkDeselectAllGroup.Location = new System.Drawing.Point(195, 3);
-            this.chkDeselectAllGroup.Name = "chkDeselectAllGroup";
-            this.chkDeselectAllGroup.Size = new System.Drawing.Size(87, 19);
-            this.chkDeselectAllGroup.TabIndex = 2;
-            this.chkDeselectAllGroup.Text = "Deselect All";
-            this.chkDeselectAllGroup.UseVisualStyleBackColor = true;
-            this.chkDeselectAllGroup.Click += new System.EventHandler(this.ChkDeselectAllGroup_Click);
+            chkDeselectAllGroup.AutoSize = true;
+            chkDeselectAllGroup.Location = new Point(195, 3);
+            chkDeselectAllGroup.Name = "chkDeselectAllGroup";
+            chkDeselectAllGroup.Size = new Size(87, 19);
+            chkDeselectAllGroup.TabIndex = 2;
+            chkDeselectAllGroup.Text = "Deselect All";
+            chkDeselectAllGroup.UseVisualStyleBackColor = true;
+            chkDeselectAllGroup.Click += ChkDeselectAllGroup_Click;
             // 
             // lblOutputFolderGroup
             // 
-            this.lblOutputFolderGroup.AutoSize = true;
-            this.lblOutputFolderGroup.Location = new System.Drawing.Point(288, 0);
-            this.lblOutputFolderGroup.Name = "lblOutputFolderGroup";
-            this.lblOutputFolderGroup.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.lblOutputFolderGroup.Size = new System.Drawing.Size(84, 20);
-            this.lblOutputFolderGroup.TabIndex = 3;
-            this.lblOutputFolderGroup.Text = "Output Folder:";
+            lblOutputFolderGroup.AutoSize = true;
+            lblOutputFolderGroup.Location = new Point(288, 0);
+            lblOutputFolderGroup.Name = "lblOutputFolderGroup";
+            lblOutputFolderGroup.Padding = new Padding(0, 5, 0, 0);
+            lblOutputFolderGroup.Size = new Size(84, 20);
+            lblOutputFolderGroup.TabIndex = 3;
+            lblOutputFolderGroup.Text = "Output Folder:";
             // 
             // txtOutputFolderGroup
             // 
-            this.txtOutputFolderGroup.Location = new System.Drawing.Point(378, 3);
-            this.txtOutputFolderGroup.Name = "txtOutputFolderGroup";
-            this.txtOutputFolderGroup.Size = new System.Drawing.Size(300, 23);
-            this.txtOutputFolderGroup.TabIndex = 4;
+            txtOutputFolderGroup.Location = new Point(378, 3);
+            txtOutputFolderGroup.Name = "txtOutputFolderGroup";
+            txtOutputFolderGroup.Size = new Size(300, 23);
+            txtOutputFolderGroup.TabIndex = 4;
             // 
             // btnBrowseOutputGroup
             // 
-            this.btnBrowseOutputGroup.Location = new System.Drawing.Point(684, 3);
-            this.btnBrowseOutputGroup.Name = "btnBrowseOutputGroup";
-            this.btnBrowseOutputGroup.Size = new System.Drawing.Size(30, 23);
-            this.btnBrowseOutputGroup.TabIndex = 5;
-            this.btnBrowseOutputGroup.Text = "...";
-            this.btnBrowseOutputGroup.UseVisualStyleBackColor = true;
-            this.btnBrowseOutputGroup.Click += new System.EventHandler(this.BtnBrowseOutputGroup_Click);
+            btnBrowseOutputGroup.Location = new Point(684, 3);
+            btnBrowseOutputGroup.Name = "btnBrowseOutputGroup";
+            btnBrowseOutputGroup.Size = new Size(30, 23);
+            btnBrowseOutputGroup.TabIndex = 5;
+            btnBrowseOutputGroup.Text = "...";
+            btnBrowseOutputGroup.UseVisualStyleBackColor = true;
+            btnBrowseOutputGroup.Click += BtnBrowseOutputGroup_Click;
             // 
             // lblGroupSummary
             // 
-            this.lblGroupSummary.AutoSize = true;
-            this.lblGroupSummary.Location = new System.Drawing.Point(3, 31);
-            this.lblGroupSummary.Name = "lblGroupSummary";
-            this.lblGroupSummary.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.lblGroupSummary.Size = new System.Drawing.Size(107, 20);
-            this.lblGroupSummary.TabIndex = 6;
-            this.lblGroupSummary.Text = "Total: 0, Selected: 0";
+            lblGroupSummary.AutoSize = true;
+            lblGroupSummary.Location = new Point(3, 31);
+            lblGroupSummary.Name = "lblGroupSummary";
+            lblGroupSummary.Padding = new Padding(0, 5, 0, 0);
+            lblGroupSummary.Size = new Size(107, 20);
+            lblGroupSummary.TabIndex = 6;
+            lblGroupSummary.Text = "Total: 0, Selected: 0";
             // 
             // clbGroups
             // 
-            this.clbGroups.CheckOnClick = true;
-            this.groupLayout.SetColumnSpan(this.clbGroups, 2);
-            this.clbGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clbGroups.FormattingEnabled = true;
-            this.clbGroups.Location = new System.Drawing.Point(13, 70);
-            this.clbGroups.Name = "clbGroups";
-            this.clbGroups.Size = new System.Drawing.Size(760, 483);
-            this.clbGroups.TabIndex = 1;
+            clbGroups.CheckOnClick = true;
+            groupLayout.SetColumnSpan(clbGroups, 2);
+            clbGroups.Dock = DockStyle.Fill;
+            clbGroups.FormattingEnabled = true;
+            clbGroups.Location = new Point(13, 70);
+            clbGroups.Name = "clbGroups";
+            clbGroups.Size = new Size(760, 483);
+            clbGroups.TabIndex = 1;
             // 
             // tabStudent
             // 
-            this.tabStudent.Location = new System.Drawing.Point(4, 24);
-            this.tabStudent.Name = "tabStudent";
-            this.tabStudent.Size = new System.Drawing.Size(792, 572);
-            this.tabStudent.TabIndex = 3;
-            this.tabStudent.Text = "Student";
-            this.tabStudent.UseVisualStyleBackColor = true;
+            tabStudent.Location = new Point(4, 24);
+            tabStudent.Name = "tabStudent";
+            tabStudent.Size = new Size(792, 572);
+            tabStudent.TabIndex = 3;
+            tabStudent.Text = "Student";
+            tabStudent.UseVisualStyleBackColor = true;
             // 
             // tabStaff
             // 
-            this.tabStaff.Location = new System.Drawing.Point(4, 24);
-            this.tabStaff.Name = "tabStaff";
-            this.tabStaff.Size = new System.Drawing.Size(792, 572);
-            this.tabStaff.TabIndex = 4;
-            this.tabStaff.Text = "Staff";
-            this.tabStaff.UseVisualStyleBackColor = true;
+            tabStaff.Location = new Point(4, 24);
+            tabStaff.Name = "tabStaff";
+            tabStaff.Size = new Size(792, 572);
+            tabStaff.TabIndex = 4;
+            tabStaff.Text = "Staff";
+            tabStaff.UseVisualStyleBackColor = true;
             // 
             // tabCCA
             // 
-            this.tabCCA.Location = new System.Drawing.Point(4, 24);
-            this.tabCCA.Name = "tabCCA";
-            this.tabCCA.Size = new System.Drawing.Size(792, 572);
-            this.tabCCA.TabIndex = 5;
-            this.tabCCA.Text = "CCA";
-            this.tabCCA.UseVisualStyleBackColor = true;
+            tabCCA.Controls.Add(ccaLayout);
+            tabCCA.Location = new Point(4, 24);
+            tabCCA.Name = "tabCCA";
+            tabCCA.Padding = new Padding(3);
+            tabCCA.Size = new Size(792, 572);
+            tabCCA.TabIndex = 5;
+            tabCCA.Text = "CCA";
+            tabCCA.UseVisualStyleBackColor = true;
+            // 
+            // ccaLayout
+            // 
+            ccaLayout.ColumnCount = 2;
+            ccaLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ccaLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            ccaLayout.Controls.Add(ccaTopPanel, 0, 0);
+            ccaLayout.Controls.Add(clbCCAs, 0, 1);
+            ccaLayout.Dock = DockStyle.Fill;
+            ccaLayout.Location = new Point(3, 3);
+            ccaLayout.Name = "ccaLayout";
+            ccaLayout.Padding = new Padding(10);
+            ccaLayout.RowCount = 3;
+            ccaLayout.RowStyles.Add(new RowStyle());
+            ccaLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            ccaLayout.RowStyles.Add(new RowStyle());
+            ccaLayout.Size = new Size(786, 566);
+            ccaLayout.TabIndex = 0;
+            // 
+            // ccaTopPanel
+            // 
+            ccaTopPanel.AutoSize = true;
+            ccaLayout.SetColumnSpan(ccaTopPanel, 2);
+            ccaTopPanel.Controls.Add(btnGenerateCCA);
+            ccaTopPanel.Controls.Add(chkSelectAllCCA);
+            ccaTopPanel.Controls.Add(chkDeselectAllCCA);
+            ccaTopPanel.Controls.Add(lblOutputFolderCCA);
+            ccaTopPanel.Controls.Add(txtOutputFolderCCA);
+            ccaTopPanel.Controls.Add(btnBrowseOutputCCA);
+            ccaTopPanel.Controls.Add(lblCCASummary);
+            ccaTopPanel.Dock = DockStyle.Fill;
+            ccaTopPanel.Location = new Point(13, 13);
+            ccaTopPanel.Name = "ccaTopPanel";
+            ccaTopPanel.Size = new Size(760, 51);
+            ccaTopPanel.TabIndex = 0;
+            // 
+            // btnGenerateCCA
+            // 
+            btnGenerateCCA.AutoSize = true;
+            btnGenerateCCA.Location = new Point(3, 3);
+            btnGenerateCCA.Name = "btnGenerateCCA";
+            btnGenerateCCA.Size = new Size(106, 25);
+            btnGenerateCCA.TabIndex = 0;
+            btnGenerateCCA.Text = "Generate Images";
+            btnGenerateCCA.UseVisualStyleBackColor = true;
+            btnGenerateCCA.Click += BtnGenerateCCA_Click;
+            // 
+            // chkSelectAllCCA
+            // 
+            chkSelectAllCCA.AutoSize = true;
+            chkSelectAllCCA.Checked = true;
+            chkSelectAllCCA.CheckState = CheckState.Checked;
+            chkSelectAllCCA.Location = new Point(115, 3);
+            chkSelectAllCCA.Name = "chkSelectAllCCA";
+            chkSelectAllCCA.Size = new Size(74, 19);
+            chkSelectAllCCA.TabIndex = 1;
+            chkSelectAllCCA.Text = "Select All";
+            chkSelectAllCCA.UseVisualStyleBackColor = true;
+            chkSelectAllCCA.Click += ChkSelectAllCCA_Click;
+            // 
+            // chkDeselectAllCCA
+            // 
+            chkDeselectAllCCA.AutoSize = true;
+            chkDeselectAllCCA.Location = new Point(195, 3);
+            chkDeselectAllCCA.Name = "chkDeselectAllCCA";
+            chkDeselectAllCCA.Size = new Size(87, 19);
+            chkDeselectAllCCA.TabIndex = 2;
+            chkDeselectAllCCA.Text = "Deselect All";
+            chkDeselectAllCCA.UseVisualStyleBackColor = true;
+            chkDeselectAllCCA.Click += ChkDeselectAllCCA_Click;
+            // 
+            // lblOutputFolderCCA
+            // 
+            lblOutputFolderCCA.AutoSize = true;
+            lblOutputFolderCCA.Location = new Point(288, 0);
+            lblOutputFolderCCA.Name = "lblOutputFolderCCA";
+            lblOutputFolderCCA.Padding = new Padding(0, 5, 0, 0);
+            lblOutputFolderCCA.Size = new Size(84, 20);
+            lblOutputFolderCCA.TabIndex = 3;
+            lblOutputFolderCCA.Text = "Output Folder:";
+            // 
+            // txtOutputFolderCCA
+            // 
+            txtOutputFolderCCA.Location = new Point(378, 3);
+            txtOutputFolderCCA.Name = "txtOutputFolderCCA";
+            txtOutputFolderCCA.Size = new Size(300, 23);
+            txtOutputFolderCCA.TabIndex = 4;
+            // 
+            // btnBrowseOutputCCA
+            // 
+            btnBrowseOutputCCA.Location = new Point(684, 3);
+            btnBrowseOutputCCA.Name = "btnBrowseOutputCCA";
+            btnBrowseOutputCCA.Size = new Size(30, 23);
+            btnBrowseOutputCCA.TabIndex = 5;
+            btnBrowseOutputCCA.Text = "...";
+            btnBrowseOutputCCA.UseVisualStyleBackColor = true;
+            btnBrowseOutputCCA.Click += BtnBrowseOutputCCA_Click;
+            // 
+            // lblCCASummary
+            // 
+            lblCCASummary.AutoSize = true;
+            lblCCASummary.Location = new Point(3, 31);
+            lblCCASummary.Name = "lblCCASummary";
+            lblCCASummary.Padding = new Padding(0, 5, 0, 0);
+            lblCCASummary.Size = new Size(107, 20);
+            lblCCASummary.TabIndex = 6;
+            lblCCASummary.Text = "Total: 0, Selected: 0";
+            // 
+            // clbCCAs
+            // 
+            clbCCAs.CheckOnClick = true;
+            ccaLayout.SetColumnSpan(clbCCAs, 2);
+            clbCCAs.Dock = DockStyle.Fill;
+            clbCCAs.FormattingEnabled = true;
+            clbCCAs.Location = new Point(13, 70);
+            clbCCAs.Name = "clbCCAs";
+            clbCCAs.Size = new Size(760, 483);
+            clbCCAs.TabIndex = 1;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 600);
-            this.Controls.Add(this.tabControl);
-            this.Name = "MainForm";
-            this.Text = "Excel to Image Converter";
-            this.tabControl.ResumeLayout(false);
-            this.tabMain.ResumeLayout(false);
-            this.mainLayout.ResumeLayout(false);
-            this.mainLayout.PerformLayout();
-            this.grpSummary.ResumeLayout(false);
-            this.grpSummary.PerformLayout();
-            this.tabClass.ResumeLayout(false);
-            this.classLayout.ResumeLayout(false);
-            this.classLayout.PerformLayout();
-            this.classTopPanel.ResumeLayout(false);
-            this.classTopPanel.PerformLayout();
-            this.tabGroup.ResumeLayout(false);
-            this.groupLayout.ResumeLayout(false);
-            this.groupLayout.PerformLayout();
-            this.groupTopPanel.ResumeLayout(false);
-            this.groupTopPanel.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 600);
+            Controls.Add(tabControl);
+            Name = "MainForm";
+            Text = "Excel to Image Converter";
+            tabControl.ResumeLayout(false);
+            tabMain.ResumeLayout(false);
+            mainLayout.ResumeLayout(false);
+            mainLayout.PerformLayout();
+            grpSummary.ResumeLayout(false);
+            grpSummary.PerformLayout();
+            tabClass.ResumeLayout(false);
+            classLayout.ResumeLayout(false);
+            classLayout.PerformLayout();
+            classTopPanel.ResumeLayout(false);
+            classTopPanel.PerformLayout();
+            tabGroup.ResumeLayout(false);
+            groupLayout.ResumeLayout(false);
+            groupLayout.PerformLayout();
+            groupTopPanel.ResumeLayout(false);
+            groupTopPanel.PerformLayout();
+            tabCCA.ResumeLayout(false);
+            ccaLayout.ResumeLayout(false);
+            ccaLayout.PerformLayout();
+            ccaTopPanel.ResumeLayout(false);
+            ccaTopPanel.PerformLayout();
+            ResumeLayout(false);
 
         }
 
@@ -600,6 +748,7 @@ namespace ExcelToImageApp
         private System.Windows.Forms.Label lblClassSummary;
         private System.Windows.Forms.Button btnGenerateAll;
         private System.Windows.Forms.Label lblMainGroupSummary;
+        private System.Windows.Forms.Label lblMainCCASummary;
 
         // Group Tab Controls
         private System.Windows.Forms.TableLayoutPanel groupLayout;
@@ -625,5 +774,17 @@ namespace ExcelToImageApp
         private System.Windows.Forms.CheckedListBox clbClasses;
         private System.Windows.Forms.Label lblLog;
         private System.Windows.Forms.RichTextBox rtbLog;
+
+        // CCA Tab Controls
+        private System.Windows.Forms.TableLayoutPanel ccaLayout;
+        private System.Windows.Forms.FlowLayoutPanel ccaTopPanel;
+        private System.Windows.Forms.Button btnGenerateCCA;
+        private System.Windows.Forms.CheckBox chkSelectAllCCA;
+        private System.Windows.Forms.CheckBox chkDeselectAllCCA;
+        private System.Windows.Forms.Label lblOutputFolderCCA;
+        private System.Windows.Forms.TextBox txtOutputFolderCCA;
+        private System.Windows.Forms.Button btnBrowseOutputCCA;
+        private System.Windows.Forms.Label lblCCASummary;
+        private System.Windows.Forms.CheckedListBox clbCCAs;
     }
 }

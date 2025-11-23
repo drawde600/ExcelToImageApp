@@ -12,6 +12,7 @@ namespace ExcelToImageApp
         private readonly ExcelService _excelService;
         private List<ClassModel> _loadedClasses;
         private List<GroupModel> _loadedGroups;
+        private List<CCAModel> _loadedCCAs;
 
         public MainForm()
         {
@@ -19,6 +20,7 @@ namespace ExcelToImageApp
             _excelService = new ExcelService();
             _loadedClasses = new List<ClassModel>();
             _loadedGroups = new List<GroupModel>();
+            _loadedCCAs = new List<CCAModel>();
         }
 
         private void BtnBrowseFile_Click(object sender, EventArgs e)
@@ -80,6 +82,7 @@ namespace ExcelToImageApp
 
                 _loadedClasses = _excelService.LoadClassData(txtFilePath.Text);
                 _loadedGroups = _excelService.LoadGroupData(txtFilePath.Text);
+                _loadedCCAs = _excelService.LoadCCAData(txtFilePath.Text);
                 
                 // Populate Class Tab
                 clbClasses.Items.Clear();
@@ -95,9 +98,17 @@ namespace ExcelToImageApp
                     clbGroups.Items.Add(grp, true);
                 }
 
+                // Populate CCA Tab
+                clbCCAs.Items.Clear();
+                foreach (var cca in _loadedCCAs)
+                {
+                    clbCCAs.Items.Add(cca, true);
+                }
+
                 // Hook up events
                 clbClasses.ItemCheck += ClbClasses_ItemCheck;
                 clbGroups.ItemCheck += ClbGroups_ItemCheck;
+                clbCCAs.ItemCheck += ClbCCAs_ItemCheck;
 
                 // Set default output folders
                 if (!string.IsNullOrWhiteSpace(txtBaseFolder.Text))
@@ -107,12 +118,16 @@ namespace ExcelToImageApp
                     
                     if (string.IsNullOrWhiteSpace(txtOutputFolderGroup.Text))
                         txtOutputFolderGroup.Text = Path.Combine(txtBaseFolder.Text, "Group");
+
+                    if (string.IsNullOrWhiteSpace(txtOutputFolderCCA.Text))
+                        txtOutputFolderCCA.Text = Path.Combine(txtBaseFolder.Text, "CCA");
                 }
 
                 UpdateClassSummary();
                 UpdateGroupSummary();
+                UpdateCCASummary();
 
-                Log($"Loaded {_loadedClasses.Count} classes, {_loadedGroups.Count} groups.");
+                Log($"Loaded {_loadedClasses.Count} classes, {_loadedGroups.Count} groups, {_loadedCCAs.Count} CCAs.");
                 MessageBox.Show("Data loaded successfully!");
             }
             catch (Exception ex)
@@ -203,6 +218,43 @@ namespace ExcelToImageApp
             {
                 clb.SetItemChecked(i, state);
             }
+        }
+
+        private void ClbCCAs_ItemCheck(object? sender, ItemCheckEventArgs e)
+        {
+            this.BeginInvoke(new Action(() => UpdateCCASummary()));
+        }
+
+        private void UpdateCCASummary()
+        {
+            int total = clbCCAs.Items.Count;
+            int selected = clbCCAs.CheckedItems.Count;
+            string summary = $"CCA: {total} items ({selected} selected)";
+
+            lblCCASummary.Text = summary;
+            lblMainCCASummary.Text = summary;
+        }
+
+        private void BtnGenerateCCA_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("CCA generation not yet supported");
+        }
+
+        private void ChkSelectAllCCA_Click(object sender, EventArgs e)
+        {
+            SetAllChecked(clbCCAs, true);
+            UpdateCCASummary();
+        }
+
+        private void ChkDeselectAllCCA_Click(object sender, EventArgs e)
+        {
+            SetAllChecked(clbCCAs, false);
+            UpdateCCASummary();
+        }
+
+        private void BtnBrowseOutputCCA_Click(object sender, EventArgs e)
+        {
+            BrowseFolder(txtOutputFolderCCA);
         }
 
         private void Log(string message)

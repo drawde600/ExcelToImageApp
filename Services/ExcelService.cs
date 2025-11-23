@@ -87,5 +87,107 @@ namespace ExcelToImageApp.Services
 
             return results;
         }
+
+        public List<StudentModel> LoadStudentData(string filePath)
+        {
+            var results = new List<StudentModel>();
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("Excel file not found.", filePath);
+            }
+
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                if (!workbook.Worksheets.TryGetWorksheet("Student", out var worksheet))
+                {
+                    throw new Exception("Worksheet 'Student' not found in the Excel file.");
+                }
+
+                var range = worksheet.RangeUsed();
+                if (range == null) return results;
+
+                var rows = range.RowsUsed().Skip(1); // Skip header
+
+                foreach (var row in rows)
+                {
+                    var studentName = row.Cell(1).GetValue<string>();
+                    if (!string.IsNullOrWhiteSpace(studentName))
+                    {
+                        results.Add(new StudentModel { StudentName = studentName });
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public List<StaffModel> LoadStaffData(string filePath)
+        {
+            var results = new List<StaffModel>();
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("Excel file not found.", filePath);
+            }
+
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                if (!workbook.Worksheets.TryGetWorksheet("Staff", out var worksheet))
+                {
+                    throw new Exception("Worksheet 'Staff' not found in the Excel file.");
+                }
+
+                var range = worksheet.RangeUsed();
+                if (range == null) return results;
+
+                var rows = range.RowsUsed().Skip(1); // Skip header
+
+                foreach (var row in rows)
+                {
+                    var staffName = row.Cell(1).GetValue<string>();
+                    if (!string.IsNullOrWhiteSpace(staffName))
+                    {
+                        results.Add(new StaffModel { StaffName = staffName });
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public List<CCAModel> LoadCCAData(string filePath)
+        {
+            var results = new List<CCAModel>();
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("Excel file not found.", filePath);
+            }
+
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                if (!workbook.Worksheets.TryGetWorksheet("CCA", out var worksheet))
+                {
+                    throw new Exception("Worksheet 'CCA' not found in the Excel file.");
+                }
+
+                var range = worksheet.RangeUsed();
+                if (range == null) return results;
+
+                var rows = range.RowsUsed().Skip(1); // Skip header
+
+                foreach (var row in rows)
+                {
+                    var ccaName = row.Cell(1).GetValue<string>();
+                    if (!string.IsNullOrWhiteSpace(ccaName))
+                    {
+                        results.Add(new CCAModel { CCAName = ccaName });
+                    }
+                }
+            }
+
+            return results;
+        }
     }
 }
