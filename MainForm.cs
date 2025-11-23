@@ -11,12 +11,14 @@ namespace ExcelToImageApp
     {
         private readonly ExcelService _excelService;
         private List<ClassModel> _loadedClasses;
+        private List<GroupModel> _loadedGroups;
 
         public MainForm()
         {
             InitializeComponent();
             _excelService = new ExcelService();
             _loadedClasses = new List<ClassModel>();
+            _loadedGroups = new List<GroupModel>();
         }
 
         private void BtnBrowseFile_Click(object sender, EventArgs e)
@@ -77,6 +79,7 @@ namespace ExcelToImageApp
                 }
 
                 _loadedClasses = _excelService.LoadClassData(txtFilePath.Text);
+                _loadedGroups = _excelService.LoadGroupData(txtFilePath.Text);
                 
                 // Populate Class Tab
                 clbClasses.Items.Clear();
@@ -85,18 +88,31 @@ namespace ExcelToImageApp
                     clbClasses.Items.Add(cls, true); // Default checked
                 }
 
-                // Hook up event for counting
-                clbClasses.ItemCheck += ClbClasses_ItemCheck;
-
-                // Set default output folder for Class if not set
-                if (string.IsNullOrWhiteSpace(txtOutputFolderClass.Text) && !string.IsNullOrWhiteSpace(txtBaseFolder.Text))
+                // Populate Group Tab
+                clbGroups.Items.Clear();
+                foreach (var grp in _loadedGroups)
                 {
-                    txtOutputFolderClass.Text = Path.Combine(txtBaseFolder.Text, "Class");
+                    clbGroups.Items.Add(grp, true);
+                }
+
+                // Hook up events
+                clbClasses.ItemCheck += ClbClasses_ItemCheck;
+                clbGroups.ItemCheck += ClbGroups_ItemCheck;
+
+                // Set default output folders
+                if (!string.IsNullOrWhiteSpace(txtBaseFolder.Text))
+                {
+                    if (string.IsNullOrWhiteSpace(txtOutputFolderClass.Text))
+                        txtOutputFolderClass.Text = Path.Combine(txtBaseFolder.Text, "Class");
+                    
+                    if (string.IsNullOrWhiteSpace(txtOutputFolderGroup.Text))
+                        txtOutputFolderGroup.Text = Path.Combine(txtBaseFolder.Text, "Group");
                 }
 
                 UpdateClassSummary();
+                UpdateGroupSummary();
 
-                Log($"Loaded {_loadedClasses.Count} classes.");
+                Log($"Loaded {_loadedClasses.Count} classes, {_loadedGroups.Count} groups.");
                 MessageBox.Show("Data loaded successfully!");
             }
             catch (Exception ex)
@@ -108,8 +124,12 @@ namespace ExcelToImageApp
 
         private void ClbClasses_ItemCheck(object? sender, ItemCheckEventArgs e)
         {
-            // The check state is not yet updated when this event fires, so we defer the update
             this.BeginInvoke(new Action(() => UpdateClassSummary()));
+        }
+
+        private void ClbGroups_ItemCheck(object? sender, ItemCheckEventArgs e)
+        {
+            this.BeginInvoke(new Action(() => UpdateGroupSummary()));
         }
 
         private void UpdateClassSummary()
@@ -122,9 +142,30 @@ namespace ExcelToImageApp
             lblMainClassSummary.Text = summary;
         }
 
+        private void UpdateGroupSummary()
+        {
+            int total = clbGroups.Items.Count;
+            int selected = clbGroups.CheckedItems.Count;
+            string summary = $"Group: {total} items ({selected} selected)";
+
+            lblGroupSummary.Text = summary;
+            lblMainGroupSummary.Text = summary;
+        }
+
+        private void BtnGenerateAll_Click(object sender, EventArgs e)
+        {
+            BtnGenerateClass_Click(sender, e);
+            BtnGenerateGroup_Click(sender, e);
+        }
+
         private void BtnGenerateClass_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not yet supported");
+            MessageBox.Show("Class generation not yet supported");
+        }
+
+        private void BtnGenerateGroup_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Group generation not yet supported");
         }
 
         private void ChkSelectAllClass_Click(object sender, EventArgs e)
@@ -137,6 +178,23 @@ namespace ExcelToImageApp
         {
             SetAllChecked(clbClasses, false);
             UpdateClassSummary();
+        }
+
+        private void ChkSelectAllGroup_Click(object sender, EventArgs e)
+        {
+            SetAllChecked(clbGroups, true);
+            UpdateGroupSummary();
+        }
+
+        private void ChkDeselectAllGroup_Click(object sender, EventArgs e)
+        {
+            SetAllChecked(clbGroups, false);
+            UpdateGroupSummary();
+        }
+
+        private void BtnBrowseOutputGroup_Click(object sender, EventArgs e)
+        {
+            BrowseFolder(txtOutputFolderGroup);
         }
 
         private void SetAllChecked(CheckedListBox clb, bool state)

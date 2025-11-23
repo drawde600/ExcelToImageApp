@@ -38,8 +38,10 @@ namespace ExcelToImageApp
             this.txtBaseFolder = new System.Windows.Forms.TextBox();
             this.btnBrowseBase = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
+            this.btnGenerateAll = new System.Windows.Forms.Button();
             this.grpSummary = new System.Windows.Forms.GroupBox();
             this.lblMainClassSummary = new System.Windows.Forms.Label();
+            this.lblMainGroupSummary = new System.Windows.Forms.Label();
             this.lblLog = new System.Windows.Forms.Label();
             this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.tabClass = new System.Windows.Forms.TabPage();
@@ -54,6 +56,16 @@ namespace ExcelToImageApp
             this.lblClassSummary = new System.Windows.Forms.Label();
             this.clbClasses = new System.Windows.Forms.CheckedListBox();
             this.tabGroup = new System.Windows.Forms.TabPage();
+            this.groupLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.groupTopPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnGenerateGroup = new System.Windows.Forms.Button();
+            this.chkSelectAllGroup = new System.Windows.Forms.CheckBox();
+            this.chkDeselectAllGroup = new System.Windows.Forms.CheckBox();
+            this.lblOutputFolderGroup = new System.Windows.Forms.Label();
+            this.txtOutputFolderGroup = new System.Windows.Forms.TextBox();
+            this.btnBrowseOutputGroup = new System.Windows.Forms.Button();
+            this.lblGroupSummary = new System.Windows.Forms.Label();
+            this.clbGroups = new System.Windows.Forms.CheckedListBox();
             this.tabStudent = new System.Windows.Forms.TabPage();
             this.tabStaff = new System.Windows.Forms.TabPage();
             this.tabCCA = new System.Windows.Forms.TabPage();
@@ -64,6 +76,9 @@ namespace ExcelToImageApp
             this.tabClass.SuspendLayout();
             this.classLayout.SuspendLayout();
             this.classTopPanel.SuspendLayout();
+            this.tabGroup.SuspendLayout();
+            this.groupLayout.SuspendLayout();
+            this.groupTopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -105,6 +120,7 @@ namespace ExcelToImageApp
             this.mainLayout.Controls.Add(this.txtBaseFolder, 1, 1);
             this.mainLayout.Controls.Add(this.btnBrowseBase, 2, 1);
             this.mainLayout.Controls.Add(this.btnLoad, 1, 2);
+            this.mainLayout.Controls.Add(this.btnGenerateAll, 2, 2);
             this.mainLayout.Controls.Add(this.grpSummary, 0, 3);
             this.mainLayout.Controls.Add(this.lblLog, 0, 4);
             this.mainLayout.Controls.Add(this.rtbLog, 0, 5);
@@ -190,10 +206,22 @@ namespace ExcelToImageApp
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.BtnLoad_Click);
             // 
+            // btnGenerateAll
+            // 
+            this.btnGenerateAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGenerateAll.Location = new System.Drawing.Point(694, 85);
+            this.btnGenerateAll.Name = "btnGenerateAll";
+            this.btnGenerateAll.Size = new System.Drawing.Size(100, 40);
+            this.btnGenerateAll.TabIndex = 10;
+            this.btnGenerateAll.Text = "Generate All";
+            this.btnGenerateAll.UseVisualStyleBackColor = true;
+            this.btnGenerateAll.Click += new System.EventHandler(this.BtnGenerateAll_Click);
+            // 
             // grpSummary
             // 
             this.mainLayout.SetColumnSpan(this.grpSummary, 3);
             this.grpSummary.Controls.Add(this.lblMainClassSummary);
+            this.grpSummary.Controls.Add(this.lblMainGroupSummary);
             this.grpSummary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSummary.Location = new System.Drawing.Point(23, 131);
             this.grpSummary.Name = "grpSummary";
@@ -210,6 +238,15 @@ namespace ExcelToImageApp
             this.lblMainClassSummary.Size = new System.Drawing.Size(120, 15);
             this.lblMainClassSummary.TabIndex = 0;
             this.lblMainClassSummary.Text = "Class: 0 items (0 selected)";
+            // 
+            // lblMainGroupSummary
+            // 
+            this.lblMainGroupSummary.AutoSize = true;
+            this.lblMainGroupSummary.Location = new System.Drawing.Point(200, 20);
+            this.lblMainGroupSummary.Name = "lblMainGroupSummary";
+            this.lblMainGroupSummary.Size = new System.Drawing.Size(120, 15);
+            this.lblMainGroupSummary.TabIndex = 1;
+            this.lblMainGroupSummary.Text = "Group: 0 items (0 selected)";
             // 
             // lblLog
             // 
@@ -273,7 +310,7 @@ namespace ExcelToImageApp
             this.classTopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.classTopPanel.Location = new System.Drawing.Point(13, 13);
             this.classTopPanel.Name = "classTopPanel";
-            this.classTopPanel.Size = new System.Drawing.Size(760, 31);
+            this.classTopPanel.Size = new System.Drawing.Size(760, 51);
             this.classTopPanel.TabIndex = 0;
             // 
             // btnGenerateClass
@@ -341,10 +378,10 @@ namespace ExcelToImageApp
             // lblClassSummary
             // 
             this.lblClassSummary.AutoSize = true;
-            this.lblClassSummary.Location = new System.Drawing.Point(720, 0);
+            this.lblClassSummary.Location = new System.Drawing.Point(3, 31);
             this.lblClassSummary.Name = "lblClassSummary";
             this.lblClassSummary.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.lblClassSummary.Size = new System.Drawing.Size(120, 20);
+            this.lblClassSummary.Size = new System.Drawing.Size(107, 20);
             this.lblClassSummary.TabIndex = 6;
             this.lblClassSummary.Text = "Total: 0, Selected: 0";
             // 
@@ -354,19 +391,139 @@ namespace ExcelToImageApp
             this.classLayout.SetColumnSpan(this.clbClasses, 2);
             this.clbClasses.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clbClasses.FormattingEnabled = true;
-            this.clbClasses.Location = new System.Drawing.Point(13, 50);
+            this.clbClasses.Location = new System.Drawing.Point(13, 70);
             this.clbClasses.Name = "clbClasses";
-            this.clbClasses.Size = new System.Drawing.Size(760, 503);
+            this.clbClasses.Size = new System.Drawing.Size(760, 483);
             this.clbClasses.TabIndex = 1;
             // 
             // tabGroup
             // 
+            this.tabGroup.Controls.Add(this.groupLayout);
             this.tabGroup.Location = new System.Drawing.Point(4, 24);
             this.tabGroup.Name = "tabGroup";
+            this.tabGroup.Padding = new System.Windows.Forms.Padding(3);
             this.tabGroup.Size = new System.Drawing.Size(792, 572);
             this.tabGroup.TabIndex = 2;
             this.tabGroup.Text = "Group";
             this.tabGroup.UseVisualStyleBackColor = true;
+            // 
+            // groupLayout
+            // 
+            this.groupLayout.ColumnCount = 2;
+            this.groupLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.groupLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.groupLayout.Controls.Add(this.groupTopPanel, 0, 0);
+            this.groupLayout.Controls.Add(this.clbGroups, 0, 1);
+            this.groupLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupLayout.Location = new System.Drawing.Point(3, 3);
+            this.groupLayout.Name = "groupLayout";
+            this.groupLayout.Padding = new System.Windows.Forms.Padding(10);
+            this.groupLayout.RowCount = 3;
+            this.groupLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.groupLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.groupLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.groupLayout.Size = new System.Drawing.Size(786, 566);
+            this.groupLayout.TabIndex = 0;
+            // 
+            // groupTopPanel
+            // 
+            this.groupTopPanel.AutoSize = true;
+            this.groupLayout.SetColumnSpan(this.groupTopPanel, 2);
+            this.groupTopPanel.Controls.Add(this.btnGenerateGroup);
+            this.groupTopPanel.Controls.Add(this.chkSelectAllGroup);
+            this.groupTopPanel.Controls.Add(this.chkDeselectAllGroup);
+            this.groupTopPanel.Controls.Add(this.lblOutputFolderGroup);
+            this.groupTopPanel.Controls.Add(this.txtOutputFolderGroup);
+            this.groupTopPanel.Controls.Add(this.btnBrowseOutputGroup);
+            this.groupTopPanel.Controls.Add(this.lblGroupSummary);
+            this.groupTopPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupTopPanel.Location = new System.Drawing.Point(13, 13);
+            this.groupTopPanel.Name = "groupTopPanel";
+            this.groupTopPanel.Size = new System.Drawing.Size(760, 51);
+            this.groupTopPanel.TabIndex = 0;
+            // 
+            // btnGenerateGroup
+            // 
+            this.btnGenerateGroup.AutoSize = true;
+            this.btnGenerateGroup.Location = new System.Drawing.Point(3, 3);
+            this.btnGenerateGroup.Name = "btnGenerateGroup";
+            this.btnGenerateGroup.Size = new System.Drawing.Size(106, 25);
+            this.btnGenerateGroup.TabIndex = 0;
+            this.btnGenerateGroup.Text = "Generate Images";
+            this.btnGenerateGroup.UseVisualStyleBackColor = true;
+            this.btnGenerateGroup.Click += new System.EventHandler(this.BtnGenerateGroup_Click);
+            // 
+            // chkSelectAllGroup
+            // 
+            this.chkSelectAllGroup.AutoSize = true;
+            this.chkSelectAllGroup.Checked = true;
+            this.chkSelectAllGroup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSelectAllGroup.Location = new System.Drawing.Point(115, 3);
+            this.chkSelectAllGroup.Name = "chkSelectAllGroup";
+            this.chkSelectAllGroup.Size = new System.Drawing.Size(74, 19);
+            this.chkSelectAllGroup.TabIndex = 1;
+            this.chkSelectAllGroup.Text = "Select All";
+            this.chkSelectAllGroup.UseVisualStyleBackColor = true;
+            this.chkSelectAllGroup.Click += new System.EventHandler(this.ChkSelectAllGroup_Click);
+            // 
+            // chkDeselectAllGroup
+            // 
+            this.chkDeselectAllGroup.AutoSize = true;
+            this.chkDeselectAllGroup.Location = new System.Drawing.Point(195, 3);
+            this.chkDeselectAllGroup.Name = "chkDeselectAllGroup";
+            this.chkDeselectAllGroup.Size = new System.Drawing.Size(87, 19);
+            this.chkDeselectAllGroup.TabIndex = 2;
+            this.chkDeselectAllGroup.Text = "Deselect All";
+            this.chkDeselectAllGroup.UseVisualStyleBackColor = true;
+            this.chkDeselectAllGroup.Click += new System.EventHandler(this.ChkDeselectAllGroup_Click);
+            // 
+            // lblOutputFolderGroup
+            // 
+            this.lblOutputFolderGroup.AutoSize = true;
+            this.lblOutputFolderGroup.Location = new System.Drawing.Point(288, 0);
+            this.lblOutputFolderGroup.Name = "lblOutputFolderGroup";
+            this.lblOutputFolderGroup.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.lblOutputFolderGroup.Size = new System.Drawing.Size(84, 20);
+            this.lblOutputFolderGroup.TabIndex = 3;
+            this.lblOutputFolderGroup.Text = "Output Folder:";
+            // 
+            // txtOutputFolderGroup
+            // 
+            this.txtOutputFolderGroup.Location = new System.Drawing.Point(378, 3);
+            this.txtOutputFolderGroup.Name = "txtOutputFolderGroup";
+            this.txtOutputFolderGroup.Size = new System.Drawing.Size(300, 23);
+            this.txtOutputFolderGroup.TabIndex = 4;
+            // 
+            // btnBrowseOutputGroup
+            // 
+            this.btnBrowseOutputGroup.Location = new System.Drawing.Point(684, 3);
+            this.btnBrowseOutputGroup.Name = "btnBrowseOutputGroup";
+            this.btnBrowseOutputGroup.Size = new System.Drawing.Size(30, 23);
+            this.btnBrowseOutputGroup.TabIndex = 5;
+            this.btnBrowseOutputGroup.Text = "...";
+            this.btnBrowseOutputGroup.UseVisualStyleBackColor = true;
+            this.btnBrowseOutputGroup.Click += new System.EventHandler(this.BtnBrowseOutputGroup_Click);
+            // 
+            // lblGroupSummary
+            // 
+            this.lblGroupSummary.AutoSize = true;
+            this.lblGroupSummary.Location = new System.Drawing.Point(3, 31);
+            this.lblGroupSummary.Name = "lblGroupSummary";
+            this.lblGroupSummary.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.lblGroupSummary.Size = new System.Drawing.Size(107, 20);
+            this.lblGroupSummary.TabIndex = 6;
+            this.lblGroupSummary.Text = "Total: 0, Selected: 0";
+            // 
+            // clbGroups
+            // 
+            this.clbGroups.CheckOnClick = true;
+            this.groupLayout.SetColumnSpan(this.clbGroups, 2);
+            this.clbGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clbGroups.FormattingEnabled = true;
+            this.clbGroups.Location = new System.Drawing.Point(13, 70);
+            this.clbGroups.Name = "clbGroups";
+            this.clbGroups.Size = new System.Drawing.Size(760, 483);
+            this.clbGroups.TabIndex = 1;
             // 
             // tabStudent
             // 
@@ -414,6 +571,11 @@ namespace ExcelToImageApp
             this.classLayout.PerformLayout();
             this.classTopPanel.ResumeLayout(false);
             this.classTopPanel.PerformLayout();
+            this.tabGroup.ResumeLayout(false);
+            this.groupLayout.ResumeLayout(false);
+            this.groupLayout.PerformLayout();
+            this.groupTopPanel.ResumeLayout(false);
+            this.groupTopPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -430,8 +592,27 @@ namespace ExcelToImageApp
         private System.Windows.Forms.TextBox txtBaseFolder;
         private System.Windows.Forms.Button btnBrowseBase;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.Label lblLog;
-        private System.Windows.Forms.RichTextBox rtbLog;
+        private System.Windows.Forms.TabPage tabStudent;
+        private System.Windows.Forms.TabPage tabStaff;
+        private System.Windows.Forms.TabPage tabCCA;
+        private System.Windows.Forms.GroupBox grpSummary;
+        private System.Windows.Forms.Label lblMainClassSummary;
+        private System.Windows.Forms.Label lblClassSummary;
+        private System.Windows.Forms.Button btnGenerateAll;
+        private System.Windows.Forms.Label lblMainGroupSummary;
+
+        // Group Tab Controls
+        private System.Windows.Forms.TableLayoutPanel groupLayout;
+        private System.Windows.Forms.FlowLayoutPanel groupTopPanel;
+        private System.Windows.Forms.Button btnGenerateGroup;
+        private System.Windows.Forms.CheckBox chkSelectAllGroup;
+        private System.Windows.Forms.CheckBox chkDeselectAllGroup;
+        private System.Windows.Forms.Label lblOutputFolderGroup;
+        private System.Windows.Forms.TextBox txtOutputFolderGroup;
+        private System.Windows.Forms.Button btnBrowseOutputGroup;
+        private System.Windows.Forms.Label lblGroupSummary;
+        private System.Windows.Forms.CheckedListBox clbGroups;
+        private System.Windows.Forms.TabPage tabGroup;
         private System.Windows.Forms.TabPage tabClass;
         private System.Windows.Forms.TableLayoutPanel classLayout;
         private System.Windows.Forms.FlowLayoutPanel classTopPanel;
@@ -442,12 +623,7 @@ namespace ExcelToImageApp
         private System.Windows.Forms.TextBox txtOutputFolderClass;
         private System.Windows.Forms.Button btnBrowseOutputClass;
         private System.Windows.Forms.CheckedListBox clbClasses;
-        private System.Windows.Forms.TabPage tabGroup;
-        private System.Windows.Forms.TabPage tabStudent;
-        private System.Windows.Forms.TabPage tabStaff;
-        private System.Windows.Forms.TabPage tabCCA;
-        private System.Windows.Forms.GroupBox grpSummary;
-        private System.Windows.Forms.Label lblMainClassSummary;
-        private System.Windows.Forms.Label lblClassSummary;
+        private System.Windows.Forms.Label lblLog;
+        private System.Windows.Forms.RichTextBox rtbLog;
     }
 }

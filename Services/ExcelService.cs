@@ -50,5 +50,42 @@ namespace ExcelToImageApp.Services
 
             return results;
         }
+
+        public List<GroupModel> LoadGroupData(string filePath)
+        {
+            var results = new List<GroupModel>();
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("Excel file not found.", filePath);
+            }
+
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                if (!workbook.Worksheets.TryGetWorksheet("Group", out var worksheet))
+                {
+                    // If Group sheet missing, return empty list or throw? 
+                    // Let's return empty list to be safe, or throw if strict.
+                    // Based on previous logic, let's throw to alert user.
+                    throw new Exception("Worksheet 'Group' not found in the Excel file.");
+                }
+
+                var range = worksheet.RangeUsed();
+                if (range == null) return results;
+
+                var rows = range.RowsUsed().Skip(1); // Skip header
+
+                foreach (var row in rows)
+                {
+                    var groupName = row.Cell(1).GetValue<string>();
+                    if (!string.IsNullOrWhiteSpace(groupName))
+                    {
+                        results.Add(new GroupModel { GroupName = groupName });
+                    }
+                }
+            }
+
+            return results;
+        }
     }
 }

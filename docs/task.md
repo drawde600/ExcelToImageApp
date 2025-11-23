@@ -1,0 +1,43 @@
+# Task: Create C# WinForms Excel to Image Converter
+
+- [x] Initialize Project <!-- id: 0 -->
+    - [x] Create new WinForms project `ExcelToImageApp` <!-- id: 1 -->
+    - [x] Add `ClosedXML` NuGet package <!-- id: 2 -->
+- [x] Analyze Excel Data <!-- id: 3 -->
+    - [x] Verify `SampleData.xlsx` has "Class" sheet <!-- id: 4 -->
+- [x] Implement Core Logic <!-- id: 5 -->
+    - [x] Create Model: `ClassModel` <!-- id: 6 -->
+    - [x] Create Model: `GroupModel` <!-- id: 25 -->
+    - [x] Create `ExcelService` to read "Class" sheet <!-- id: 13 -->
+    - [x] Update `ExcelService` to read "Group" sheet <!-- id: 26 -->
+    - [x] **Image Generation**: Stub only (MessageBox "Not yet supported") <!-- id: 7 -->
+- [x] Build UI <!-- id: 8 -->
+    - [x] Setup `TabControl` with pages: Main, Class, Group, Student, Staff, CCA <!-- id: 14 -->
+    - [x] **Main Tab**: <!-- id: 9 -->
+        - [x] File Picker (Double-click to browse) <!-- id: 22 -->
+        - [x] "Base Folder" TextBox (Default: Excel Dir) + Browse Button <!-- id: 23 -->
+        - [x] Load Button, Log Output <!-- id: 24 -->
+        - [x] "Generate All" Button <!-- id: 27 -->
+        - [x] Summary Labels for Class and Group <!-- id: 28 -->
+    - [x] **Class Tab**: <!-- id: 17 -->
+        - [x] Checked List of Class Names (from 1st column) <!-- id: 18 -->
+        - [x] "Select All" / "Deselect All" controls (Default: All Checked) <!-- id: 19 -->
+        - [x] "Output Folder" TextBox (Default: `[BaseDir]\Class`) + Browse Button <!-- id: 21 -->
+        - [x] "Generate" button (Top Left) -> Shows Message <!-- id: 20 -->
+    - [x] **Group Tab**: <!-- id: 29 -->
+        - [x] Checked List of Group Names (from 1st column) <!-- id: 30 -->
+        - [x] "Select All" / "Deselect All" controls <!-- id: 31 -->
+        - [x] "Output Folder" TextBox (Default: `[BaseDir]\Group`) <!-- id: 32 -->
+        - [x] "Generate" button -> Shows Message <!-- id: 33 -->
+- [ ] Implement Remaining Tabs <!-- id: 34 -->
+    - [ ] **Student Tab** UI and Logic <!-- id: 35 -->
+    - [ ] **Staff Tab** UI and Logic <!-- id: 36 -->
+    - [ ] **CCA Tab** UI and Logic <!-- id: 37 -->
+- [ ] Implement Image Generation <!-- id: 38 -->
+    - [ ] Create `ImageGenerator` service <!-- id: 39 -->
+    - [ ] Implement generation for Class <!-- id: 40 -->
+    - [ ] Implement generation for Group <!-- id: 41 -->
+    - [ ] Implement generation for others <!-- id: 42 -->
+- [ ] Verification <!-- id: 11 -->
+    - [ ] Test loading data from all sheets <!-- id: 12 -->
+    - [ ] Verify image generation for each type <!-- id: 16 -->
