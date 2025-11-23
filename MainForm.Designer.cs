@@ -43,6 +43,7 @@ namespace ExcelToImageApp
             lblMainClassSummary = new Label();
             lblMainGroupSummary = new Label();
             lblMainCCASummary = new Label();
+            lblMainStaffSummary = new Label();
             lblLog = new Label();
             rtbLog = new RichTextBox();
             tabClass = new TabPage();
@@ -69,6 +70,7 @@ namespace ExcelToImageApp
             clbGroups = new CheckedListBox();
             tabStudent = new TabPage();
             tabStaff = new TabPage();
+            _staffControl = new ExcelToImageApp.Controls.StaffControl();
             tabCCA = new TabPage();
             ccaLayout = new TableLayoutPanel();
             ccaTopPanel = new FlowLayoutPanel();
@@ -90,6 +92,7 @@ namespace ExcelToImageApp
             tabGroup.SuspendLayout();
             groupLayout.SuspendLayout();
             groupTopPanel.SuspendLayout();
+            tabStaff.SuspendLayout();
             tabCCA.SuspendLayout();
             ccaLayout.SuspendLayout();
             ccaTopPanel.SuspendLayout();
@@ -237,6 +240,7 @@ namespace ExcelToImageApp
             grpSummary.Controls.Add(lblMainClassSummary);
             grpSummary.Controls.Add(lblMainGroupSummary);
             grpSummary.Controls.Add(lblMainCCASummary);
+            grpSummary.Controls.Add(lblMainStaffSummary);
             grpSummary.Dock = DockStyle.Fill;
             grpSummary.Location = new Point(23, 131);
             grpSummary.Name = "grpSummary";
@@ -272,6 +276,15 @@ namespace ExcelToImageApp
             lblMainCCASummary.TabIndex = 2;
             lblMainCCASummary.Text = "CCA: 0 items (0 selected)";
             // 
+            // lblMainStaffSummary
+            // 
+            lblMainStaffSummary.AutoSize = true;
+            lblMainStaffSummary.Location = new Point(580, 20);
+            lblMainStaffSummary.Name = "lblMainStaffSummary";
+            lblMainStaffSummary.Size = new Size(138, 15);
+            lblMainStaffSummary.TabIndex = 3;
+            lblMainStaffSummary.Text = "Staff: 0 items (0 selected)";
+            // 
             // lblLog
             // 
             lblLog.AutoSize = true;
@@ -297,7 +310,7 @@ namespace ExcelToImageApp
             tabClass.Location = new Point(4, 24);
             tabClass.Name = "tabClass";
             tabClass.Padding = new Padding(3);
-            tabClass.Size = new Size(792, 572);
+            tabClass.Size = new Size(192, 72);
             tabClass.TabIndex = 1;
             tabClass.Text = "Class";
             tabClass.UseVisualStyleBackColor = true;
@@ -317,7 +330,7 @@ namespace ExcelToImageApp
             classLayout.RowStyles.Add(new RowStyle());
             classLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             classLayout.RowStyles.Add(new RowStyle());
-            classLayout.Size = new Size(786, 566);
+            classLayout.Size = new Size(186, 66);
             classLayout.TabIndex = 0;
             // 
             // classTopPanel
@@ -334,7 +347,7 @@ namespace ExcelToImageApp
             classTopPanel.Dock = DockStyle.Fill;
             classTopPanel.Location = new Point(13, 13);
             classTopPanel.Name = "classTopPanel";
-            classTopPanel.Size = new Size(760, 51);
+            classTopPanel.Size = new Size(160, 109);
             classTopPanel.TabIndex = 0;
             // 
             // btnGenerateClass
@@ -353,7 +366,7 @@ namespace ExcelToImageApp
             chkSelectAllClass.AutoSize = true;
             chkSelectAllClass.Checked = true;
             chkSelectAllClass.CheckState = CheckState.Checked;
-            chkSelectAllClass.Location = new Point(115, 3);
+            chkSelectAllClass.Location = new Point(3, 34);
             chkSelectAllClass.Name = "chkSelectAllClass";
             chkSelectAllClass.Size = new Size(74, 19);
             chkSelectAllClass.TabIndex = 1;
@@ -364,7 +377,7 @@ namespace ExcelToImageApp
             // chkDeselectAllClass
             // 
             chkDeselectAllClass.AutoSize = true;
-            chkDeselectAllClass.Location = new Point(195, 3);
+            chkDeselectAllClass.Location = new Point(3, 59);
             chkDeselectAllClass.Name = "chkDeselectAllClass";
             chkDeselectAllClass.Size = new Size(87, 19);
             chkDeselectAllClass.TabIndex = 2;
@@ -375,7 +388,7 @@ namespace ExcelToImageApp
             // lblOutputFolderClass
             // 
             lblOutputFolderClass.AutoSize = true;
-            lblOutputFolderClass.Location = new Point(288, 0);
+            lblOutputFolderClass.Location = new Point(3, 81);
             lblOutputFolderClass.Name = "lblOutputFolderClass";
             lblOutputFolderClass.Padding = new Padding(0, 5, 0, 0);
             lblOutputFolderClass.Size = new Size(84, 20);
@@ -384,14 +397,14 @@ namespace ExcelToImageApp
             // 
             // txtOutputFolderClass
             // 
-            txtOutputFolderClass.Location = new Point(378, 3);
+            txtOutputFolderClass.Location = new Point(3, 104);
             txtOutputFolderClass.Name = "txtOutputFolderClass";
             txtOutputFolderClass.Size = new Size(300, 23);
             txtOutputFolderClass.TabIndex = 4;
             // 
             // btnBrowseOutputClass
             // 
-            btnBrowseOutputClass.Location = new Point(684, 3);
+            btnBrowseOutputClass.Location = new Point(3, 133);
             btnBrowseOutputClass.Name = "btnBrowseOutputClass";
             btnBrowseOutputClass.Size = new Size(30, 23);
             btnBrowseOutputClass.TabIndex = 5;
@@ -402,7 +415,7 @@ namespace ExcelToImageApp
             // lblClassSummary
             // 
             lblClassSummary.AutoSize = true;
-            lblClassSummary.Location = new Point(3, 31);
+            lblClassSummary.Location = new Point(39, 130);
             lblClassSummary.Name = "lblClassSummary";
             lblClassSummary.Padding = new Padding(0, 5, 0, 0);
             lblClassSummary.Size = new Size(107, 20);
@@ -414,9 +427,9 @@ namespace ExcelToImageApp
             clbClasses.CheckOnClick = true;
             clbClasses.Dock = DockStyle.Fill;
             clbClasses.FormattingEnabled = true;
-            clbClasses.Location = new Point(13, 70);
+            clbClasses.Location = new Point(13, 128);
             clbClasses.Name = "clbClasses";
-            clbClasses.Size = new Size(377, 483);
+            clbClasses.Size = new Size(77, 1);
             clbClasses.TabIndex = 1;
             // 
             // tabGroup
@@ -425,7 +438,7 @@ namespace ExcelToImageApp
             tabGroup.Location = new Point(4, 24);
             tabGroup.Name = "tabGroup";
             tabGroup.Padding = new Padding(3);
-            tabGroup.Size = new Size(792, 572);
+            tabGroup.Size = new Size(192, 72);
             tabGroup.TabIndex = 2;
             tabGroup.Text = "Group";
             tabGroup.UseVisualStyleBackColor = true;
@@ -445,7 +458,7 @@ namespace ExcelToImageApp
             groupLayout.RowStyles.Add(new RowStyle());
             groupLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             groupLayout.RowStyles.Add(new RowStyle());
-            groupLayout.Size = new Size(786, 566);
+            groupLayout.Size = new Size(186, 66);
             groupLayout.TabIndex = 0;
             // 
             // groupTopPanel
@@ -462,7 +475,7 @@ namespace ExcelToImageApp
             groupTopPanel.Dock = DockStyle.Fill;
             groupTopPanel.Location = new Point(13, 13);
             groupTopPanel.Name = "groupTopPanel";
-            groupTopPanel.Size = new Size(760, 51);
+            groupTopPanel.Size = new Size(160, 109);
             groupTopPanel.TabIndex = 0;
             // 
             // btnGenerateGroup
@@ -481,7 +494,7 @@ namespace ExcelToImageApp
             chkSelectAllGroup.AutoSize = true;
             chkSelectAllGroup.Checked = true;
             chkSelectAllGroup.CheckState = CheckState.Checked;
-            chkSelectAllGroup.Location = new Point(115, 3);
+            chkSelectAllGroup.Location = new Point(3, 34);
             chkSelectAllGroup.Name = "chkSelectAllGroup";
             chkSelectAllGroup.Size = new Size(74, 19);
             chkSelectAllGroup.TabIndex = 1;
@@ -492,7 +505,7 @@ namespace ExcelToImageApp
             // chkDeselectAllGroup
             // 
             chkDeselectAllGroup.AutoSize = true;
-            chkDeselectAllGroup.Location = new Point(195, 3);
+            chkDeselectAllGroup.Location = new Point(3, 59);
             chkDeselectAllGroup.Name = "chkDeselectAllGroup";
             chkDeselectAllGroup.Size = new Size(87, 19);
             chkDeselectAllGroup.TabIndex = 2;
@@ -503,7 +516,7 @@ namespace ExcelToImageApp
             // lblOutputFolderGroup
             // 
             lblOutputFolderGroup.AutoSize = true;
-            lblOutputFolderGroup.Location = new Point(288, 0);
+            lblOutputFolderGroup.Location = new Point(3, 81);
             lblOutputFolderGroup.Name = "lblOutputFolderGroup";
             lblOutputFolderGroup.Padding = new Padding(0, 5, 0, 0);
             lblOutputFolderGroup.Size = new Size(84, 20);
@@ -512,14 +525,14 @@ namespace ExcelToImageApp
             // 
             // txtOutputFolderGroup
             // 
-            txtOutputFolderGroup.Location = new Point(378, 3);
+            txtOutputFolderGroup.Location = new Point(3, 104);
             txtOutputFolderGroup.Name = "txtOutputFolderGroup";
             txtOutputFolderGroup.Size = new Size(300, 23);
             txtOutputFolderGroup.TabIndex = 4;
             // 
             // btnBrowseOutputGroup
             // 
-            btnBrowseOutputGroup.Location = new Point(684, 3);
+            btnBrowseOutputGroup.Location = new Point(3, 133);
             btnBrowseOutputGroup.Name = "btnBrowseOutputGroup";
             btnBrowseOutputGroup.Size = new Size(30, 23);
             btnBrowseOutputGroup.TabIndex = 5;
@@ -530,7 +543,7 @@ namespace ExcelToImageApp
             // lblGroupSummary
             // 
             lblGroupSummary.AutoSize = true;
-            lblGroupSummary.Location = new Point(3, 31);
+            lblGroupSummary.Location = new Point(39, 130);
             lblGroupSummary.Name = "lblGroupSummary";
             lblGroupSummary.Padding = new Padding(0, 5, 0, 0);
             lblGroupSummary.Size = new Size(107, 20);
@@ -543,28 +556,37 @@ namespace ExcelToImageApp
             groupLayout.SetColumnSpan(clbGroups, 2);
             clbGroups.Dock = DockStyle.Fill;
             clbGroups.FormattingEnabled = true;
-            clbGroups.Location = new Point(13, 70);
+            clbGroups.Location = new Point(13, 128);
             clbGroups.Name = "clbGroups";
-            clbGroups.Size = new Size(760, 483);
+            clbGroups.Size = new Size(160, 1);
             clbGroups.TabIndex = 1;
             // 
             // tabStudent
             // 
             tabStudent.Location = new Point(4, 24);
             tabStudent.Name = "tabStudent";
-            tabStudent.Size = new Size(792, 572);
+            tabStudent.Size = new Size(192, 72);
             tabStudent.TabIndex = 3;
             tabStudent.Text = "Student";
             tabStudent.UseVisualStyleBackColor = true;
             // 
             // tabStaff
             // 
+            tabStaff.Controls.Add(_staffControl);
             tabStaff.Location = new Point(4, 24);
             tabStaff.Name = "tabStaff";
-            tabStaff.Size = new Size(792, 572);
+            tabStaff.Size = new Size(192, 72);
             tabStaff.TabIndex = 4;
             tabStaff.Text = "Staff";
             tabStaff.UseVisualStyleBackColor = true;
+            // 
+            // _staffControl
+            // 
+            _staffControl.Dock = DockStyle.Fill;
+            _staffControl.Location = new Point(0, 0);
+            _staffControl.Name = "_staffControl";
+            _staffControl.Size = new Size(192, 72);
+            _staffControl.TabIndex = 0;
             // 
             // tabCCA
             // 
@@ -572,7 +594,7 @@ namespace ExcelToImageApp
             tabCCA.Location = new Point(4, 24);
             tabCCA.Name = "tabCCA";
             tabCCA.Padding = new Padding(3);
-            tabCCA.Size = new Size(792, 572);
+            tabCCA.Size = new Size(192, 72);
             tabCCA.TabIndex = 5;
             tabCCA.Text = "CCA";
             tabCCA.UseVisualStyleBackColor = true;
@@ -592,7 +614,7 @@ namespace ExcelToImageApp
             ccaLayout.RowStyles.Add(new RowStyle());
             ccaLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             ccaLayout.RowStyles.Add(new RowStyle());
-            ccaLayout.Size = new Size(786, 566);
+            ccaLayout.Size = new Size(186, 66);
             ccaLayout.TabIndex = 0;
             // 
             // ccaTopPanel
@@ -609,7 +631,7 @@ namespace ExcelToImageApp
             ccaTopPanel.Dock = DockStyle.Fill;
             ccaTopPanel.Location = new Point(13, 13);
             ccaTopPanel.Name = "ccaTopPanel";
-            ccaTopPanel.Size = new Size(760, 51);
+            ccaTopPanel.Size = new Size(160, 109);
             ccaTopPanel.TabIndex = 0;
             // 
             // btnGenerateCCA
@@ -628,7 +650,7 @@ namespace ExcelToImageApp
             chkSelectAllCCA.AutoSize = true;
             chkSelectAllCCA.Checked = true;
             chkSelectAllCCA.CheckState = CheckState.Checked;
-            chkSelectAllCCA.Location = new Point(115, 3);
+            chkSelectAllCCA.Location = new Point(3, 34);
             chkSelectAllCCA.Name = "chkSelectAllCCA";
             chkSelectAllCCA.Size = new Size(74, 19);
             chkSelectAllCCA.TabIndex = 1;
@@ -639,7 +661,7 @@ namespace ExcelToImageApp
             // chkDeselectAllCCA
             // 
             chkDeselectAllCCA.AutoSize = true;
-            chkDeselectAllCCA.Location = new Point(195, 3);
+            chkDeselectAllCCA.Location = new Point(3, 59);
             chkDeselectAllCCA.Name = "chkDeselectAllCCA";
             chkDeselectAllCCA.Size = new Size(87, 19);
             chkDeselectAllCCA.TabIndex = 2;
@@ -650,7 +672,7 @@ namespace ExcelToImageApp
             // lblOutputFolderCCA
             // 
             lblOutputFolderCCA.AutoSize = true;
-            lblOutputFolderCCA.Location = new Point(288, 0);
+            lblOutputFolderCCA.Location = new Point(3, 81);
             lblOutputFolderCCA.Name = "lblOutputFolderCCA";
             lblOutputFolderCCA.Padding = new Padding(0, 5, 0, 0);
             lblOutputFolderCCA.Size = new Size(84, 20);
@@ -659,14 +681,14 @@ namespace ExcelToImageApp
             // 
             // txtOutputFolderCCA
             // 
-            txtOutputFolderCCA.Location = new Point(378, 3);
+            txtOutputFolderCCA.Location = new Point(3, 104);
             txtOutputFolderCCA.Name = "txtOutputFolderCCA";
             txtOutputFolderCCA.Size = new Size(300, 23);
             txtOutputFolderCCA.TabIndex = 4;
             // 
             // btnBrowseOutputCCA
             // 
-            btnBrowseOutputCCA.Location = new Point(684, 3);
+            btnBrowseOutputCCA.Location = new Point(3, 133);
             btnBrowseOutputCCA.Name = "btnBrowseOutputCCA";
             btnBrowseOutputCCA.Size = new Size(30, 23);
             btnBrowseOutputCCA.TabIndex = 5;
@@ -677,7 +699,7 @@ namespace ExcelToImageApp
             // lblCCASummary
             // 
             lblCCASummary.AutoSize = true;
-            lblCCASummary.Location = new Point(3, 31);
+            lblCCASummary.Location = new Point(39, 130);
             lblCCASummary.Name = "lblCCASummary";
             lblCCASummary.Padding = new Padding(0, 5, 0, 0);
             lblCCASummary.Size = new Size(107, 20);
@@ -690,16 +712,16 @@ namespace ExcelToImageApp
             ccaLayout.SetColumnSpan(clbCCAs, 2);
             clbCCAs.Dock = DockStyle.Fill;
             clbCCAs.FormattingEnabled = true;
-            clbCCAs.Location = new Point(13, 70);
+            clbCCAs.Location = new Point(13, 128);
             clbCCAs.Name = "clbCCAs";
-            clbCCAs.Size = new Size(760, 483);
+            clbCCAs.Size = new Size(160, 1);
             clbCCAs.TabIndex = 1;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 600);
+            ClientSize = new Size(960, 600);
             Controls.Add(tabControl);
             Name = "MainForm";
             Text = "Excel to Image Converter";
@@ -719,6 +741,7 @@ namespace ExcelToImageApp
             groupLayout.PerformLayout();
             groupTopPanel.ResumeLayout(false);
             groupTopPanel.PerformLayout();
+            tabStaff.ResumeLayout(false);
             tabCCA.ResumeLayout(false);
             ccaLayout.ResumeLayout(false);
             ccaLayout.PerformLayout();
@@ -786,5 +809,7 @@ namespace ExcelToImageApp
         private System.Windows.Forms.Button btnBrowseOutputCCA;
         private System.Windows.Forms.Label lblCCASummary;
         private System.Windows.Forms.CheckedListBox clbCCAs;
+        private System.Windows.Forms.Label lblMainStaffSummary;
+        private ExcelToImageApp.Controls.StaffControl _staffControl;
     }
 }

@@ -1,4 +1,5 @@
 using ExcelToImageApp.Models;
+using ExcelToImageApp.Controls;
 using ExcelToImageApp.Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ExcelToImageApp
         private List<ClassModel> _loadedClasses;
         private List<GroupModel> _loadedGroups;
         private List<CCAModel> _loadedCCAs;
+        private List<StaffModel> _loadedStaff;
 
         public MainForm()
         {
@@ -21,6 +23,9 @@ namespace ExcelToImageApp
             _loadedClasses = new List<ClassModel>();
             _loadedGroups = new List<GroupModel>();
             _loadedCCAs = new List<CCAModel>();
+            _loadedStaff = new List<StaffModel>();
+
+            // Staff UI is configured via the Designer.
         }
 
         private void BtnBrowseFile_Click(object sender, EventArgs e)
@@ -83,6 +88,7 @@ namespace ExcelToImageApp
                 _loadedClasses = _excelService.LoadClassData(txtFilePath.Text);
                 _loadedGroups = _excelService.LoadGroupData(txtFilePath.Text);
                 _loadedCCAs = _excelService.LoadCCAData(txtFilePath.Text);
+                _loadedStaff = _excelService.LoadStaffData(txtFilePath.Text);
                 
                 // Populate Class Tab
                 clbClasses.Items.Clear();
@@ -105,6 +111,9 @@ namespace ExcelToImageApp
                     clbCCAs.Items.Add(cca, true);
                 }
 
+                // Populate Staff Tab via StaffControl
+                _staffControl.LoadData(_loadedStaff, txtBaseFolder.Text);
+
                 // Hook up events
                 clbClasses.ItemCheck += ClbClasses_ItemCheck;
                 clbGroups.ItemCheck += ClbGroups_ItemCheck;
@@ -121,13 +130,15 @@ namespace ExcelToImageApp
 
                     if (string.IsNullOrWhiteSpace(txtOutputFolderCCA.Text))
                         txtOutputFolderCCA.Text = Path.Combine(txtBaseFolder.Text, "CCA");
+                    // StaffControl sets its own default when loading data
                 }
 
                 UpdateClassSummary();
                 UpdateGroupSummary();
                 UpdateCCASummary();
+                UpdateStaffSummary();
 
-                Log($"Loaded {_loadedClasses.Count} classes, {_loadedGroups.Count} groups, {_loadedCCAs.Count} CCAs.");
+                Log($"Loaded {_loadedClasses.Count} classes, {_loadedGroups.Count} groups, {_loadedCCAs.Count} CCAs, {_loadedStaff.Count} staff.");
                 MessageBox.Show("Data loaded successfully!");
             }
             catch (Exception ex)
@@ -233,6 +244,22 @@ namespace ExcelToImageApp
 
             lblCCASummary.Text = summary;
             lblMainCCASummary.Text = summary;
+        }
+
+        private void UpdateStaffSummary()
+        {
+            int total = _staffControl?.TotalCount ?? 0;
+            int selected = _staffControl?.SelectedCount ?? 0;
+            string summary = $"Staff: {total} items ({selected} selected)";
+            if (lblMainStaffSummary != null)
+            {
+                lblMainStaffSummary.Text = summary;
+            }
+        }
+
+        private void StaffControl_SelectionChanged(object? sender, EventArgs e)
+        {
+            UpdateStaffSummary();
         }
 
         private void BtnGenerateCCA_Click(object sender, EventArgs e)

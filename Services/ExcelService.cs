@@ -141,14 +141,42 @@ namespace ExcelToImageApp.Services
                 var range = worksheet.RangeUsed();
                 if (range == null) return results;
 
+                // Identify column indices by header names (case-insensitive): NAME and POST
+                var headerRow = range.FirstRow();
+                int? nameCol = null;
+                int? postCol = null;
+
+                foreach (var cell in headerRow.CellsUsed())
+                {
+                    var header = (cell.GetValue<string>() ?? string.Empty).Trim();
+                    if (header.Equals("NAME", StringComparison.OrdinalIgnoreCase))
+                    {
+                        nameCol = cell.Address.ColumnNumber;
+                    }
+                    else if (header.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                    {
+                        postCol = cell.Address.ColumnNumber;
+                    }
+                }
+
+                if (!nameCol.HasValue)
+                {
+                    throw new Exception("Worksheet 'Staff' missing required column header 'NAME'.");
+                }
+
                 var rows = range.RowsUsed().Skip(1); // Skip header
 
                 foreach (var row in rows)
                 {
-                    var staffName = row.Cell(1).GetValue<string>();
+                    var staffName = row.Cell(nameCol.Value).GetValue<string>();
+                    var position = postCol.HasValue ? row.Cell(postCol.Value).GetValue<string>() : string.Empty;
                     if (!string.IsNullOrWhiteSpace(staffName))
                     {
-                        results.Add(new StaffModel { StaffName = staffName });
+                        results.Add(new StaffModel
+                        {
+                            StaffName = staffName?.Trim() ?? string.Empty,
+                            Position = position?.Trim() ?? string.Empty
+                        });
                     }
                 }
             }
