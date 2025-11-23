@@ -15,6 +15,7 @@ namespace ExcelToImageApp
         private List<GroupModel> _loadedGroups;
         private List<CCAModel> _loadedCCAs;
         private List<StaffModel> _loadedStaff;
+        private List<StudentModel> _loadedStudents;
 
         public MainForm()
         {
@@ -24,6 +25,7 @@ namespace ExcelToImageApp
             _loadedGroups = new List<GroupModel>();
             _loadedCCAs = new List<CCAModel>();
             _loadedStaff = new List<StaffModel>();
+            _loadedStudents = new List<StudentModel>();
 
             // Staff UI is configured via the Designer.
         }
@@ -89,6 +91,7 @@ namespace ExcelToImageApp
                 _loadedGroups = _excelService.LoadGroupData(txtFilePath.Text);
                 _loadedCCAs = _excelService.LoadCCAData(txtFilePath.Text);
                 _loadedStaff = _excelService.LoadStaffData(txtFilePath.Text);
+                _loadedStudents = _excelService.LoadStudentData(txtFilePath.Text);
                 
                 // Populate Class Tab
                 clbClasses.Items.Clear();
@@ -113,6 +116,8 @@ namespace ExcelToImageApp
 
                 // Populate Staff Tab via StaffControl
                 _staffControl.LoadData(_loadedStaff, txtBaseFolder.Text);
+                // Populate Student Tab via StudentControl
+                _studentControl.LoadData(_loadedStudents, txtBaseFolder.Text);
 
                 // Hook up events
                 clbClasses.ItemCheck += ClbClasses_ItemCheck;
@@ -137,8 +142,9 @@ namespace ExcelToImageApp
                 UpdateGroupSummary();
                 UpdateCCASummary();
                 UpdateStaffSummary();
+                UpdateStudentSummary();
 
-                Log($"Loaded {_loadedClasses.Count} classes, {_loadedGroups.Count} groups, {_loadedCCAs.Count} CCAs, {_loadedStaff.Count} staff.");
+                Log($"Loaded {_loadedClasses.Count} classes, {_loadedGroups.Count} groups, {_loadedCCAs.Count} CCAs, {_loadedStaff.Count} staff, {_loadedStudents.Count} students.");
                 MessageBox.Show("Data loaded successfully!");
             }
             catch (Exception ex)
@@ -260,6 +266,22 @@ namespace ExcelToImageApp
         private void StaffControl_SelectionChanged(object? sender, EventArgs e)
         {
             UpdateStaffSummary();
+        }
+
+        private void StudentControl_SelectionChanged(object? sender, EventArgs e)
+        {
+            UpdateStudentSummary();
+        }
+
+        private void UpdateStudentSummary()
+        {
+            int total = _studentControl?.TotalCount ?? 0;
+            int selected = _studentControl?.SelectedCount ?? 0;
+            string summary = $"Student: {total} items ({selected} selected)";
+            if (lblMainStudentSummary != null)
+            {
+                lblMainStudentSummary.Text = summary;
+            }
         }
 
         private void BtnGenerateCCA_Click(object sender, EventArgs e)

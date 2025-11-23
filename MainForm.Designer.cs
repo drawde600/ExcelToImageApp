@@ -44,6 +44,7 @@ namespace ExcelToImageApp
             lblMainGroupSummary = new Label();
             lblMainCCASummary = new Label();
             lblMainStaffSummary = new Label();
+            lblMainStudentSummary = new Label();
             lblLog = new Label();
             rtbLog = new RichTextBox();
             tabClass = new TabPage();
@@ -69,6 +70,7 @@ namespace ExcelToImageApp
             lblGroupSummary = new Label();
             clbGroups = new CheckedListBox();
             tabStudent = new TabPage();
+            _studentControl = new ExcelToImageApp.Controls.StudentControl();
             tabStaff = new TabPage();
             _staffControl = new ExcelToImageApp.Controls.StaffControl();
             tabCCA = new TabPage();
@@ -241,10 +243,11 @@ namespace ExcelToImageApp
             grpSummary.Controls.Add(lblMainGroupSummary);
             grpSummary.Controls.Add(lblMainCCASummary);
             grpSummary.Controls.Add(lblMainStaffSummary);
+            grpSummary.Controls.Add(lblMainStudentSummary);
             grpSummary.Dock = DockStyle.Fill;
             grpSummary.Location = new Point(23, 131);
             grpSummary.Name = "grpSummary";
-            grpSummary.Size = new Size(740, 50);
+            grpSummary.Size = new Size(740, 70);
             grpSummary.TabIndex = 9;
             grpSummary.TabStop = false;
             grpSummary.Text = "Data Summary";
@@ -284,6 +287,15 @@ namespace ExcelToImageApp
             lblMainStaffSummary.Size = new Size(138, 15);
             lblMainStaffSummary.TabIndex = 3;
             lblMainStaffSummary.Text = "Staff: 0 items (0 selected)";
+            // 
+            // lblMainStudentSummary
+            // 
+            lblMainStudentSummary.AutoSize = true;
+            lblMainStudentSummary.Location = new Point(10, 40);
+            lblMainStudentSummary.Name = "lblMainStudentSummary";
+            lblMainStudentSummary.Size = new Size(156, 15);
+            lblMainStudentSummary.TabIndex = 4;
+            lblMainStudentSummary.Text = "Student: 0 items (0 selected)";
             // 
             // lblLog
             // 
@@ -563,12 +575,22 @@ namespace ExcelToImageApp
             // 
             // tabStudent
             // 
+            tabStudent.Controls.Add(_studentControl);
             tabStudent.Location = new Point(4, 24);
             tabStudent.Name = "tabStudent";
-            tabStudent.Size = new Size(192, 72);
+            tabStudent.Size = new Size(792, 572);
             tabStudent.TabIndex = 3;
             tabStudent.Text = "Student";
             tabStudent.UseVisualStyleBackColor = true;
+            // 
+            // _studentControl
+            // 
+            _studentControl.Dock = DockStyle.Fill;
+            _studentControl.Location = new Point(0, 0);
+            _studentControl.Name = "_studentControl";
+            _studentControl.Size = new Size(792, 572);
+            _studentControl.TabIndex = 0;
+            _studentControl.SelectionChanged += StudentControl_SelectionChanged;
             // 
             // tabStaff
             // 
@@ -810,6 +832,8 @@ namespace ExcelToImageApp
         private System.Windows.Forms.Label lblCCASummary;
         private System.Windows.Forms.CheckedListBox clbCCAs;
         private System.Windows.Forms.Label lblMainStaffSummary;
+        private System.Windows.Forms.Label lblMainStudentSummary;
         private ExcelToImageApp.Controls.StaffControl _staffControl;
+        private ExcelToImageApp.Controls.StudentControl _studentControl;
     }
 }

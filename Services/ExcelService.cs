@@ -99,22 +99,51 @@ namespace ExcelToImageApp.Services
 
             using (var workbook = new XLWorkbook(filePath))
             {
-                if (!workbook.Worksheets.TryGetWorksheet("Student", out var worksheet))
+                if (!workbook.Worksheets.TryGetWorksheet("Students", out var worksheet))
                 {
-                    throw new Exception("Worksheet 'Student' not found in the Excel file.");
+                    throw new Exception("Worksheet 'Students' not found in the Excel file.");
                 }
 
                 var range = worksheet.RangeUsed();
                 if (range == null) return results;
 
+                // Identify headers (case-insensitive): NAME, INDEX NO, CLASS
+                var headerRow = range.FirstRow();
+                int? nameCol = null;
+                int? indexCol = null;
+                int? classCol = null;
+
+                foreach (var cell in headerRow.CellsUsed())
+                {
+                    var header = (cell.GetValue<string>() ?? string.Empty).Trim();
+                    if (header.Equals("NAME", StringComparison.OrdinalIgnoreCase))
+                        nameCol = cell.Address.ColumnNumber;
+                    else if (header.Equals("INDEX NO", StringComparison.OrdinalIgnoreCase))
+                        indexCol = cell.Address.ColumnNumber;
+                    else if (header.Equals("CLASS", StringComparison.OrdinalIgnoreCase))
+                        classCol = cell.Address.ColumnNumber;
+                }
+
+                if (!nameCol.HasValue || !indexCol.HasValue || !classCol.HasValue)
+                {
+                    throw new Exception("Worksheet 'Students' missing required headers. Expected: NAME, INDEX NO, CLASS.");
+                }
+
                 var rows = range.RowsUsed().Skip(1); // Skip header
 
                 foreach (var row in rows)
                 {
-                    var studentName = row.Cell(1).GetValue<string>();
-                    if (!string.IsNullOrWhiteSpace(studentName))
+                    var name = row.Cell(nameCol.Value).GetValue<string>();
+                    var index = row.Cell(indexCol.Value).GetValue<string>();
+                    var cls = row.Cell(classCol.Value).GetValue<string>();
+                    if (!string.IsNullOrWhiteSpace(name))
                     {
-                        results.Add(new StudentModel { StudentName = studentName });
+                        results.Add(new StudentModel
+                        {
+                            StudentName = name?.Trim() ?? string.Empty,
+                            IndexNo = index?.Trim() ?? string.Empty,
+                            ClassName = cls?.Trim() ?? string.Empty
+                        });
                     }
                 }
             }

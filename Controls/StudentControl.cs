@@ -12,6 +12,7 @@ namespace ExcelToImageApp.Controls
         private List<StudentModel> _students = new List<StudentModel>();
 
         public event EventHandler GenerateRequested;
+        public event EventHandler? SelectionChanged;
 
         public StudentControl()
         {
@@ -88,6 +89,7 @@ namespace ExcelToImageApp.Controls
         private void UpdateSummary()
         {
             lblSummary.Text = $"Total: {TotalCount}, Selected: {SelectedCount}";
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
