@@ -3,7 +3,10 @@ using ExcelToImageApp.Controls;
 using ExcelToImageApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace ExcelToImageApp
@@ -192,7 +195,155 @@ namespace ExcelToImageApp
 
         private void BtnGenerateClass_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Class generation not yet supported");
+            try
+            {
+                // Validate inputs
+                if (string.IsNullOrWhiteSpace(txtBaseFolder.Text))
+                {
+                    MessageBox.Show("Please set a Base Folder on the Main tab.");
+                    return;
+                }
+
+                var referenceSub = string.IsNullOrWhiteSpace(txtReferenceSubfolder.Text)
+                    ? "ReferenceImage"
+                    : txtReferenceSubfolder.Text.Trim();
+                var referenceDir = Path.Combine(txtBaseFolder.Text, referenceSub);
+                if (!Directory.Exists(referenceDir))
+                {
+                    MessageBox.Show($"Reference folder not found: {referenceDir}");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtOutputFolderClass.Text))
+                {
+                    MessageBox.Show("Please specify an output folder for Class.");
+                    return;
+                }
+                Directory.CreateDirectory(txtOutputFolderClass.Text);
+
+                // Clean output folder before generating
+                int cleared = 0;
+                foreach (var existing in Directory.EnumerateFiles(txtOutputFolderClass.Text))
+                {
+                    try { File.Delete(existing); cleared++; }
+                    catch (Exception ex) { Log($"Could not delete '{existing}': {ex.Message}"); }
+                }
+                if (cleared > 0) Log($"Cleared {cleared} files from '{txtOutputFolderClass.Text}'.");
+
+                // Collect reference images that start with CLASS-
+                var refFiles = Directory.EnumerateFiles(referenceDir, "CLASS-*.*", SearchOption.TopDirectoryOnly)
+                    .Select(p => new { Path = p, Name = Path.GetFileName(p) })
+                    .Where(f => f.Name.StartsWith("CLASS-", StringComparison.OrdinalIgnoreCase))
+                    .Select(f =>
+                    {
+                        var nameWithoutExt = Path.GetFileNameWithoutExtension(f.Name);
+                        var rest = nameWithoutExt.Substring("CLASS-".Length);
+                        // Extract leading digits as SEQNO; preserve original digit string
+                        var digits = new string(rest.TakeWhile(char.IsDigit).ToArray());
+                        return new
+                        {
+                            f.Path,
+                            Seq = digits,
+                            Ext = Path.GetExtension(f.Name).TrimStart('.')
+                        };
+                    })
+                    .Where(x => !string.IsNullOrEmpty(x.Seq))
+                    .OrderBy(x => int.TryParse(x.Seq, out var n) ? n : int.MaxValue)
+                    .ToList();
+
+                if (refFiles.Count == 0)
+                {
+                    MessageBox.Show($"No reference images found starting with 'CLASS-' in {referenceDir}.");
+                    return;
+                }
+
+                if (clbClasses.CheckedItems.Count == 0)
+                {
+                    MessageBox.Show("Please select at least one class to generate.");
+                    return;
+                }
+
+                var pattern = cmbClassFilenamePattern?.SelectedItem as string ?? "{CLASSNO}{SEPA}{SEQNO}.{EXT}";
+                var sepa = cmbSeparator?.SelectedItem as string ?? "_";
+                int padWidth = pattern.Contains("{SEQNO3}") ? 3 : pattern.Contains("{SEQNO2}") ? 2 : 0;
+                int total = 0;
+
+                foreach (var cls in clbClasses.CheckedItems.Cast<ClassModel>())
+                {
+                    var classToken = cls.ClassName?.Trim() ?? string.Empty; // e.g., "1-Gryffindor"
+                    foreach (var rf in refFiles)
+                    {
+                        var seqOut = padWidth > 0 ? rf.Seq.PadLeft(padWidth, '0') : rf.Seq;
+                        string fileName = pattern
+                            .Replace("{CLASSNO}", classToken)
+                            .Replace("{SEQNO3}", seqOut)
+                            .Replace("{SEQNO2}", seqOut)
+                            .Replace("{SEQNO}", seqOut)
+                            .Replace("{SEPA}", sepa)
+                            .Replace("{EXT}", rf.Ext);
+
+                        var destPath = Path.Combine(txtOutputFolderClass.Text, fileName);
+                        SaveImageWithTimestamp(rf.Path, destPath);
+                        total++;
+                    }
+                }
+
+                Log($"Generated {total} class images into '{txtOutputFolderClass.Text}'.");
+                MessageBox.Show($"Generated {total} class images.");
+            }
+            catch (Exception ex)
+            {
+                Log($"Error generating class images: {ex.Message}");
+                MessageBox.Show($"Error generating class images: {ex.Message}");
+            }
+        }
+
+        private void SaveImageWithTimestamp(string sourcePath, string destinationPath)
+        {
+            using (var bmp = new Bitmap(sourcePath))
+            using (var g = Graphics.FromImage(bmp))
+            using (var font = new Font("Segoe UI", 8f, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+                string stamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                var location = new PointF(4f, 4f);
+
+                using (var shadowBrush = new SolidBrush(Color.FromArgb(160, 0, 0, 0)))
+                using (var textBrush = new SolidBrush(Color.FromArgb(210, 255, 255, 255)))
+                {
+                    // Tiny shadow for readability
+                    g.DrawString(stamp, font, shadowBrush, new PointF(location.X + 1, location.Y + 1));
+                    g.DrawString(stamp, font, textBrush, location);
+                }
+
+                var ext = Path.GetExtension(destinationPath)?.TrimStart('.').ToLowerInvariant();
+                switch (ext)
+                {
+                    case "jpg":
+                    case "jpeg":
+                        bmp.Save(destinationPath, ImageFormat.Jpeg);
+                        break;
+                    case "png":
+                        bmp.Save(destinationPath, ImageFormat.Png);
+                        break;
+                    case "bmp":
+                        bmp.Save(destinationPath, ImageFormat.Bmp);
+                        break;
+                    case "gif":
+                        bmp.Save(destinationPath, ImageFormat.Gif);
+                        break;
+                    case "tif":
+                    case "tiff":
+                        bmp.Save(destinationPath, ImageFormat.Tiff);
+                        break;
+                    default:
+                        // Fallback to source's raw format
+                        bmp.Save(destinationPath, bmp.RawFormat);
+                        break;
+                }
+            }
         }
 
         private void BtnGenerateGroup_Click(object sender, EventArgs e)

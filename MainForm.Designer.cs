@@ -39,6 +39,8 @@ namespace ExcelToImageApp
             btnBrowseBase = new Button();
             btnLoad = new Button();
             btnGenerateAll = new Button();
+            lblReferenceSubfolder = new Label();
+            txtReferenceSubfolder = new TextBox();
             grpSummary = new GroupBox();
             lblMainClassSummary = new Label();
             lblMainGroupSummary = new Label();
@@ -56,6 +58,8 @@ namespace ExcelToImageApp
             lblOutputFolderClass = new Label();
             txtOutputFolderClass = new TextBox();
             btnBrowseOutputClass = new Button();
+            lblClassFilenamePattern = new Label();
+            cmbClassFilenamePattern = new ComboBox();
             lblClassSummary = new Label();
             clbClasses = new CheckedListBox();
             tabGroup = new TabPage();
@@ -84,6 +88,8 @@ namespace ExcelToImageApp
             btnBrowseOutputCCA = new Button();
             lblCCASummary = new Label();
             clbCCAs = new CheckedListBox();
+            lblSeparator = new Label();
+            cmbSeparator = new ComboBox();
             tabControl.SuspendLayout();
             tabMain.SuspendLayout();
             mainLayout.SuspendLayout();
@@ -140,20 +146,26 @@ namespace ExcelToImageApp
             mainLayout.Controls.Add(btnBrowseBase, 2, 1);
             mainLayout.Controls.Add(btnLoad, 1, 2);
             mainLayout.Controls.Add(btnGenerateAll, 2, 2);
-            mainLayout.Controls.Add(grpSummary, 0, 3);
-            mainLayout.Controls.Add(lblLog, 0, 4);
-            mainLayout.Controls.Add(rtbLog, 0, 5);
+            mainLayout.Controls.Add(lblReferenceSubfolder, 0, 3);
+            mainLayout.Controls.Add(txtReferenceSubfolder, 1, 3);
+            mainLayout.Controls.Add(lblSeparator, 0, 4);
+            mainLayout.Controls.Add(cmbSeparator, 1, 4);
+            mainLayout.Controls.Add(grpSummary, 0, 5);
+            mainLayout.Controls.Add(lblLog, 0, 6);
+            mainLayout.Controls.Add(rtbLog, 0, 7);
             mainLayout.Dock = DockStyle.Fill;
             mainLayout.Location = new Point(3, 3);
             mainLayout.Name = "mainLayout";
             mainLayout.Padding = new Padding(20);
-            mainLayout.RowCount = 6;
+            mainLayout.RowCount = 8;
+            mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 0F));
             mainLayout.Size = new Size(786, 566);
             mainLayout.TabIndex = 0;
             // 
@@ -235,6 +247,45 @@ namespace ExcelToImageApp
             btnGenerateAll.Text = "Generate All";
             btnGenerateAll.UseVisualStyleBackColor = true;
             btnGenerateAll.Click += BtnGenerateAll_Click;
+            // 
+            // lblSeparator
+            // 
+            lblSeparator.AutoSize = true;
+            lblSeparator.Location = new Point(23, 159);
+            lblSeparator.Name = "lblSeparator";
+            lblSeparator.Size = new Size(61, 15);
+            lblSeparator.TabIndex = 14;
+            lblSeparator.Text = "Separator:";
+            // 
+            // cmbSeparator
+            // 
+            cmbSeparator.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSeparator.FormattingEnabled = true;
+            cmbSeparator.Items.AddRange(new object[] {"_","-"," "});
+            cmbSeparator.Location = new Point(99, 162);
+            cmbSeparator.Name = "cmbSeparator";
+            cmbSeparator.Size = new Size(80, 23);
+            cmbSeparator.TabIndex = 15;
+            cmbSeparator.SelectedIndex = 0;
+            // 
+            // lblReferenceSubfolder
+            // 
+            lblReferenceSubfolder.AutoSize = true;
+            lblReferenceSubfolder.Location = new Point(23, 128);
+            lblReferenceSubfolder.Name = "lblReferenceSubfolder";
+            lblReferenceSubfolder.Size = new Size(128, 15);
+            lblReferenceSubfolder.TabIndex = 11;
+            lblReferenceSubfolder.Text = "Reference Subfolder:";
+            // 
+            // txtReferenceSubfolder
+            // 
+            mainLayout.SetColumnSpan(txtReferenceSubfolder, 2);
+            txtReferenceSubfolder.Dock = DockStyle.Fill;
+            txtReferenceSubfolder.Location = new Point(157, 131);
+            txtReferenceSubfolder.Name = "txtReferenceSubfolder";
+            txtReferenceSubfolder.Size = new Size(575, 23);
+            txtReferenceSubfolder.TabIndex = 12;
+            txtReferenceSubfolder.Text = "ReferenceImage";
             // 
             // grpSummary
             // 
@@ -355,6 +406,8 @@ namespace ExcelToImageApp
             classTopPanel.Controls.Add(lblOutputFolderClass);
             classTopPanel.Controls.Add(txtOutputFolderClass);
             classTopPanel.Controls.Add(btnBrowseOutputClass);
+            classTopPanel.Controls.Add(lblClassFilenamePattern);
+            classTopPanel.Controls.Add(cmbClassFilenamePattern);
             classTopPanel.Controls.Add(lblClassSummary);
             classTopPanel.Dock = DockStyle.Fill;
             classTopPanel.Location = new Point(13, 13);
@@ -423,6 +476,32 @@ namespace ExcelToImageApp
             btnBrowseOutputClass.Text = "...";
             btnBrowseOutputClass.UseVisualStyleBackColor = true;
             btnBrowseOutputClass.Click += BtnBrowseOutputClass_Click;
+            // 
+            // lblClassFilenamePattern
+            // 
+            lblClassFilenamePattern.AutoSize = true;
+            lblClassFilenamePattern.Location = new Point(39, 130);
+            lblClassFilenamePattern.Name = "lblClassFilenamePattern";
+            lblClassFilenamePattern.Padding = new Padding(0, 5, 0, 0);
+            lblClassFilenamePattern.Size = new Size(106, 20);
+            lblClassFilenamePattern.TabIndex = 6;
+            lblClassFilenamePattern.Text = "Filename Pattern:";
+            // 
+            // cmbClassFilenamePattern
+            // 
+            cmbClassFilenamePattern.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbClassFilenamePattern.FormattingEnabled = true;
+            cmbClassFilenamePattern.Items.AddRange(new object[] {
+                "{CLASSNO}{SEPA}{SEQNO}.{EXT}",
+                "{SEQNO}{SEPA}{CLASSNO}.{EXT}",
+                "{CLASSNO}{SEPA}{SEQNO3}.{EXT}",
+                "{SEQNO3}{SEPA}{CLASSNO}.{EXT}"
+            });
+            cmbClassFilenamePattern.Location = new Point(151, 128);
+            cmbClassFilenamePattern.Name = "cmbClassFilenamePattern";
+            cmbClassFilenamePattern.Size = new Size(180, 23);
+            cmbClassFilenamePattern.TabIndex = 7;
+            cmbClassFilenamePattern.SelectedIndex = 3;
             // 
             // lblClassSummary
             // 
@@ -835,5 +914,11 @@ namespace ExcelToImageApp
         private System.Windows.Forms.Label lblMainStudentSummary;
         private ExcelToImageApp.Controls.StaffControl _staffControl;
         private ExcelToImageApp.Controls.StudentControl _studentControl;
+        private System.Windows.Forms.Label lblReferenceSubfolder;
+        private System.Windows.Forms.TextBox txtReferenceSubfolder;
+        private System.Windows.Forms.Label lblClassFilenamePattern;
+        private System.Windows.Forms.ComboBox cmbClassFilenamePattern;
+        private System.Windows.Forms.Label lblSeparator;
+        private System.Windows.Forms.ComboBox cmbSeparator;
     }
 }
