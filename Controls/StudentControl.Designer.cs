@@ -26,6 +26,8 @@ namespace ExcelToImageApp.Controls
             this.txtOutputFolder = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.lblSummary = new System.Windows.Forms.Label();
+            this.lblPattern = new System.Windows.Forms.Label();
+            this.cmbPattern = new System.Windows.Forms.ComboBox();
             this.clbStudents = new System.Windows.Forms.CheckedListBox();
             this.mainLayout.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -56,6 +58,8 @@ namespace ExcelToImageApp.Controls
             this.topPanel.Controls.Add(this.lblOutputFolder);
             this.topPanel.Controls.Add(this.txtOutputFolder);
             this.topPanel.Controls.Add(this.btnBrowse);
+            this.topPanel.Controls.Add(this.lblPattern);
+            this.topPanel.Controls.Add(this.cmbPattern);
             this.topPanel.Controls.Add(this.lblSummary);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.topPanel.Location = new System.Drawing.Point(13, 13);
@@ -127,10 +131,34 @@ namespace ExcelToImageApp.Controls
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
             // 
+            // lblPattern
+            // 
+            this.lblPattern.AutoSize = true;
+            this.lblPattern.Location = new System.Drawing.Point(670, 0);
+            this.lblPattern.Name = "lblPattern";
+            this.lblPattern.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.lblPattern.Size = new System.Drawing.Size(94, 23);
+            this.lblPattern.TabIndex = 7;
+            this.lblPattern.Text = "Filename Pattern:";
+            // 
+            // cmbPattern
+            // 
+            this.cmbPattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPattern.FormattingEnabled = true;
+            this.cmbPattern.Items.AddRange(new object[] {
+            "{CLASS}{SEPA}{INDEXNO}{SEPA}{STUDENT}{SEPA}{SEQNO}.{EXT}",
+            "{CLASS}{SEPA}{INDEXNO}{SEPA}{STUDENT}{SEPA}{SEQNO03}.{EXT}",
+            "{CLASS}{SEPA}{INDEXNO}-{STUDENT}{SEPA}{SEQNO}.{EXT}"});
+            this.cmbPattern.Location = new System.Drawing.Point(770, 3);
+            this.cmbPattern.Name = "cmbPattern";
+            this.cmbPattern.Size = new System.Drawing.Size(320, 23);
+            this.cmbPattern.TabIndex = 8;
+            this.cmbPattern.SelectedIndex = 2;
+            // 
             // lblSummary
             // 
             this.lblSummary.AutoSize = true;
-            this.lblSummary.Location = new System.Drawing.Point(670, 0);
+            this.lblSummary.Location = new System.Drawing.Point(1096, 0);
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.lblSummary.Size = new System.Drawing.Size(107, 23);
@@ -174,5 +202,7 @@ namespace ExcelToImageApp.Controls
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Label lblSummary;
         private System.Windows.Forms.CheckedListBox clbStudents;
+        private System.Windows.Forms.Label lblPattern;
+        private System.Windows.Forms.ComboBox cmbPattern;
     }
 }

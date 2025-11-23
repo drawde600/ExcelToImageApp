@@ -17,6 +17,7 @@ namespace ExcelToImageApp.Controls
         public StudentControl()
         {
             InitializeComponent();
+            btnGenerate.Enabled = false;
         }
 
         public void LoadData(List<StudentModel> students, string baseFolder)
@@ -35,6 +36,7 @@ namespace ExcelToImageApp.Controls
             }
 
             UpdateSummary();
+            btnGenerate.Enabled = _students.Count > 0;
         }
 
         public List<StudentModel> GetSelectedStudents()
@@ -45,6 +47,7 @@ namespace ExcelToImageApp.Controls
         public string OutputFolder => txtOutputFolder.Text;
         public int TotalCount => clbStudents.Items.Count;
         public int SelectedCount => clbStudents.CheckedItems.Count;
+        public string SelectedPattern => cmbPattern?.SelectedItem as string ?? "{CLASS}{SEPA}{INDEXNO}-{STUDENT}{SEPA}{SEQNO}.{EXT}";
 
         private void BtnGenerate_Click(object sender, EventArgs e)
         {

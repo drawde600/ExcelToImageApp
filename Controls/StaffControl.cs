@@ -17,6 +17,7 @@ namespace ExcelToImageApp.Controls
         public StaffControl()
         {
             InitializeComponent();
+            btnGenerate.Enabled = false;
         }
 
         public void LoadData(List<StaffModel> staff, string baseFolder)
@@ -35,6 +36,7 @@ namespace ExcelToImageApp.Controls
             }
 
             UpdateSummary();
+            btnGenerate.Enabled = _staff.Count > 0;
         }
 
         public List<StaffModel> GetSelectedStaff()
@@ -45,6 +47,7 @@ namespace ExcelToImageApp.Controls
         public string OutputFolder => txtOutputFolder.Text;
         public int TotalCount => clbStaff.Items.Count;
         public int SelectedCount => clbStaff.CheckedItems.Count;
+        public string SelectedPattern => cmbPattern?.SelectedItem as string ?? "{STAFF}{SEPA}{POSITION}{SEPA}{SEQNO}.{EXT}";
 
         private void BtnGenerate_Click(object sender, EventArgs e)
         {

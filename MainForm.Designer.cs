@@ -39,8 +39,17 @@ namespace ExcelToImageApp
             btnBrowseBase = new Button();
             btnLoad = new Button();
             btnGenerateAll = new Button();
+            btnClean = new Button();
             lblReferenceSubfolder = new Label();
             txtReferenceSubfolder = new TextBox();
+            chkCopyToAll = new CheckBox();
+            lblSeparator = new Label();
+            cmbSeparator = new ComboBox();
+            chkUppercase = new CheckBox();
+            lblSchoolName = new Label();
+            txtSchoolName = new TextBox();
+            lblSchoolShortName = new Label();
+            txtSchoolShortName = new TextBox();
             grpSummary = new GroupBox();
             lblMainClassSummary = new Label();
             lblMainGroupSummary = new Label();
@@ -71,6 +80,8 @@ namespace ExcelToImageApp
             lblOutputFolderGroup = new Label();
             txtOutputFolderGroup = new TextBox();
             btnBrowseOutputGroup = new Button();
+            lblGroupFilenamePattern = new Label();
+            cmbGroupFilenamePattern = new ComboBox();
             lblGroupSummary = new Label();
             clbGroups = new CheckedListBox();
             tabStudent = new TabPage();
@@ -86,10 +97,10 @@ namespace ExcelToImageApp
             lblOutputFolderCCA = new Label();
             txtOutputFolderCCA = new TextBox();
             btnBrowseOutputCCA = new Button();
+            lblCCAFilenamePattern = new Label();
+            cmbCCAFilenamePattern = new ComboBox();
             lblCCASummary = new Label();
             clbCCAs = new CheckedListBox();
-            lblSeparator = new Label();
-            cmbSeparator = new ComboBox();
             tabControl.SuspendLayout();
             tabMain.SuspendLayout();
             mainLayout.SuspendLayout();
@@ -100,6 +111,7 @@ namespace ExcelToImageApp
             tabGroup.SuspendLayout();
             groupLayout.SuspendLayout();
             groupTopPanel.SuspendLayout();
+            tabStudent.SuspendLayout();
             tabStaff.SuspendLayout();
             tabCCA.SuspendLayout();
             ccaLayout.SuspendLayout();
@@ -118,7 +130,7 @@ namespace ExcelToImageApp
             tabControl.Location = new Point(0, 0);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(800, 600);
+            tabControl.Size = new Size(960, 600);
             tabControl.TabIndex = 0;
             // 
             // tabMain
@@ -127,7 +139,7 @@ namespace ExcelToImageApp
             tabMain.Location = new Point(4, 24);
             tabMain.Name = "tabMain";
             tabMain.Padding = new Padding(3);
-            tabMain.Size = new Size(792, 572);
+            tabMain.Size = new Size(952, 572);
             tabMain.TabIndex = 0;
             tabMain.Text = "Main";
             tabMain.UseVisualStyleBackColor = true;
@@ -148,16 +160,25 @@ namespace ExcelToImageApp
             mainLayout.Controls.Add(btnGenerateAll, 2, 2);
             mainLayout.Controls.Add(lblReferenceSubfolder, 0, 3);
             mainLayout.Controls.Add(txtReferenceSubfolder, 1, 3);
+            mainLayout.Controls.Add(chkCopyToAll, 0, 2);
             mainLayout.Controls.Add(lblSeparator, 0, 4);
             mainLayout.Controls.Add(cmbSeparator, 1, 4);
-            mainLayout.Controls.Add(grpSummary, 0, 5);
-            mainLayout.Controls.Add(lblLog, 0, 6);
-            mainLayout.Controls.Add(rtbLog, 0, 7);
+            mainLayout.Controls.Add(chkUppercase, 2, 4);
+            mainLayout.Controls.Add(lblSchoolName, 0, 5);
+            mainLayout.Controls.Add(txtSchoolName, 1, 5);
+            mainLayout.Controls.Add(lblSchoolShortName, 0, 6);
+            mainLayout.Controls.Add(txtSchoolShortName, 1, 6);
+            mainLayout.Controls.Add(btnClean, 2, 6);
+            mainLayout.Controls.Add(grpSummary, 0, 7);
+            mainLayout.Controls.Add(lblLog, 0, 8);
+            mainLayout.Controls.Add(rtbLog, 0, 9);
             mainLayout.Dock = DockStyle.Fill;
             mainLayout.Location = new Point(3, 3);
             mainLayout.Name = "mainLayout";
             mainLayout.Padding = new Padding(20);
-            mainLayout.RowCount = 8;
+            mainLayout.RowCount = 10;
+            mainLayout.RowStyles.Add(new RowStyle());
+            mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle());
@@ -166,7 +187,7 @@ namespace ExcelToImageApp
             mainLayout.RowStyles.Add(new RowStyle());
             mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 0F));
-            mainLayout.Size = new Size(786, 566);
+            mainLayout.Size = new Size(946, 566);
             mainLayout.TabIndex = 0;
             // 
             // lblExcelFile
@@ -181,16 +202,16 @@ namespace ExcelToImageApp
             // txtFilePath
             // 
             txtFilePath.Dock = DockStyle.Fill;
-            txtFilePath.Location = new Point(99, 23);
+            txtFilePath.Location = new Point(145, 23);
             txtFilePath.Name = "txtFilePath";
-            txtFilePath.Size = new Size(558, 23);
+            txtFilePath.Size = new Size(617, 23);
             txtFilePath.TabIndex = 1;
             txtFilePath.DoubleClick += TxtFilePath_DoubleClick;
             // 
             // btnBrowseFile
             // 
             btnBrowseFile.AutoSize = true;
-            btnBrowseFile.Location = new Point(663, 23);
+            btnBrowseFile.Location = new Point(768, 23);
             btnBrowseFile.Name = "btnBrowseFile";
             btnBrowseFile.Size = new Size(69, 25);
             btnBrowseFile.TabIndex = 2;
@@ -210,15 +231,15 @@ namespace ExcelToImageApp
             // txtBaseFolder
             // 
             txtBaseFolder.Dock = DockStyle.Fill;
-            txtBaseFolder.Location = new Point(99, 54);
+            txtBaseFolder.Location = new Point(145, 54);
             txtBaseFolder.Name = "txtBaseFolder";
-            txtBaseFolder.Size = new Size(558, 23);
+            txtBaseFolder.Size = new Size(617, 23);
             txtBaseFolder.TabIndex = 4;
             // 
             // btnBrowseBase
             // 
             btnBrowseBase.AutoSize = true;
-            btnBrowseBase.Location = new Point(663, 54);
+            btnBrowseBase.Location = new Point(768, 54);
             btnBrowseBase.Name = "btnBrowseBase";
             btnBrowseBase.Size = new Size(69, 25);
             btnBrowseBase.TabIndex = 5;
@@ -229,9 +250,9 @@ namespace ExcelToImageApp
             // btnLoad
             // 
             btnLoad.Dock = DockStyle.Top;
-            btnLoad.Location = new Point(99, 85);
+            btnLoad.Location = new Point(145, 85);
             btnLoad.Name = "btnLoad";
-            btnLoad.Size = new Size(558, 40);
+            btnLoad.Size = new Size(617, 40);
             btnLoad.TabIndex = 6;
             btnLoad.Text = "Load Data";
             btnLoad.UseVisualStyleBackColor = true;
@@ -240,40 +261,33 @@ namespace ExcelToImageApp
             // btnGenerateAll
             // 
             btnGenerateAll.Dock = DockStyle.Top;
-            btnGenerateAll.Location = new Point(663, 85);
+            btnGenerateAll.Location = new Point(768, 85);
             btnGenerateAll.Name = "btnGenerateAll";
-            btnGenerateAll.Size = new Size(100, 40);
+            btnGenerateAll.Size = new Size(155, 40);
             btnGenerateAll.TabIndex = 10;
             btnGenerateAll.Text = "Generate All";
             btnGenerateAll.UseVisualStyleBackColor = true;
             btnGenerateAll.Click += BtnGenerateAll_Click;
+            btnGenerateAll.Enabled = false;
             // 
-            // lblSeparator
+            // btnClean
             // 
-            lblSeparator.AutoSize = true;
-            lblSeparator.Location = new Point(23, 159);
-            lblSeparator.Name = "lblSeparator";
-            lblSeparator.Size = new Size(61, 15);
-            lblSeparator.TabIndex = 14;
-            lblSeparator.Text = "Separator:";
-            // 
-            // cmbSeparator
-            // 
-            cmbSeparator.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbSeparator.FormattingEnabled = true;
-            cmbSeparator.Items.AddRange(new object[] {"_","-"," "});
-            cmbSeparator.Location = new Point(99, 162);
-            cmbSeparator.Name = "cmbSeparator";
-            cmbSeparator.Size = new Size(80, 23);
-            cmbSeparator.TabIndex = 15;
-            cmbSeparator.SelectedIndex = 0;
+            btnClean.AutoSize = true;
+            btnClean.Dock = DockStyle.Top;
+            btnClean.Location = new Point(663, 220);
+            btnClean.Name = "btnClean";
+            btnClean.Size = new Size(100, 40);
+            btnClean.TabIndex = 11;
+            btnClean.Text = "CLEAN";
+            btnClean.UseVisualStyleBackColor = true;
+            btnClean.Click += BtnClean_Click;
             // 
             // lblReferenceSubfolder
             // 
             lblReferenceSubfolder.AutoSize = true;
             lblReferenceSubfolder.Location = new Point(23, 128);
             lblReferenceSubfolder.Name = "lblReferenceSubfolder";
-            lblReferenceSubfolder.Size = new Size(128, 15);
+            lblReferenceSubfolder.Size = new Size(116, 15);
             lblReferenceSubfolder.TabIndex = 11;
             lblReferenceSubfolder.Text = "Reference Subfolder:";
             // 
@@ -281,11 +295,91 @@ namespace ExcelToImageApp
             // 
             mainLayout.SetColumnSpan(txtReferenceSubfolder, 2);
             txtReferenceSubfolder.Dock = DockStyle.Fill;
-            txtReferenceSubfolder.Location = new Point(157, 131);
+            txtReferenceSubfolder.Location = new Point(145, 131);
             txtReferenceSubfolder.Name = "txtReferenceSubfolder";
-            txtReferenceSubfolder.Size = new Size(575, 23);
+            txtReferenceSubfolder.Size = new Size(778, 23);
             txtReferenceSubfolder.TabIndex = 12;
             txtReferenceSubfolder.Text = "ReferenceImage";
+            // 
+            // chkCopyToAll
+            // 
+            chkCopyToAll.AutoSize = true;
+            chkCopyToAll.Location = new Point(663, 131);
+            chkCopyToAll.Name = "chkCopyToAll";
+            chkCopyToAll.Size = new Size(94, 19);
+            chkCopyToAll.TabIndex = 13;
+            chkCopyToAll.Text = "Copy to All";
+            chkCopyToAll.UseVisualStyleBackColor = true;
+            // 
+            // lblSeparator
+            // 
+            lblSeparator.AutoSize = true;
+            lblSeparator.Location = new Point(23, 157);
+            lblSeparator.Name = "lblSeparator";
+            lblSeparator.Size = new Size(60, 15);
+            lblSeparator.TabIndex = 14;
+            lblSeparator.Text = "Separator:";
+            // 
+            // cmbSeparator
+            // 
+            cmbSeparator.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSeparator.FormattingEnabled = true;
+            cmbSeparator.Items.AddRange(new object[] { "_", "-", " " });
+            cmbSeparator.Location = new Point(145, 160);
+            cmbSeparator.Name = "cmbSeparator";
+            cmbSeparator.Size = new Size(80, 23);
+            cmbSeparator.TabIndex = 15;
+            // 
+            // chkUppercase
+            // 
+            chkUppercase.AutoSize = true;
+            chkUppercase.Checked = true;
+            chkUppercase.CheckState = CheckState.Checked;
+            chkUppercase.Location = new Point(768, 160);
+            chkUppercase.Name = "chkUppercase";
+            chkUppercase.Size = new Size(155, 19);
+            chkUppercase.TabIndex = 16;
+            chkUppercase.Text = "Convert all to Uppercase";
+            chkUppercase.UseVisualStyleBackColor = true;
+            chkUppercase.Checked = true;
+            chkUppercase.CheckedChanged += ChkUppercase_CheckedChanged;
+            // 
+            // lblSchoolName
+            // 
+            lblSchoolName.AutoSize = true;
+            lblSchoolName.Location = new Point(23, 186);
+            lblSchoolName.Name = "lblSchoolName";
+            lblSchoolName.Size = new Size(81, 15);
+            lblSchoolName.TabIndex = 16;
+            lblSchoolName.Text = "School Name:";
+            // 
+            // txtSchoolName
+            // 
+            mainLayout.SetColumnSpan(txtSchoolName, 2);
+            txtSchoolName.Dock = DockStyle.Fill;
+            txtSchoolName.Location = new Point(145, 189);
+            txtSchoolName.Name = "txtSchoolName";
+            txtSchoolName.Size = new Size(778, 23);
+            txtSchoolName.TabIndex = 17;
+            txtSchoolName.Text = "SCHOOL";
+            // 
+            // lblSchoolShortName
+            // 
+            lblSchoolShortName.AutoSize = true;
+            lblSchoolShortName.Location = new Point(23, 215);
+            lblSchoolShortName.Name = "lblSchoolShortName";
+            lblSchoolShortName.Size = new Size(112, 15);
+            lblSchoolShortName.TabIndex = 18;
+            lblSchoolShortName.Text = "School Short Name:";
+            // 
+            // txtSchoolShortName
+            // 
+            txtSchoolShortName.Dock = DockStyle.Left;
+            txtSchoolShortName.Location = new Point(145, 218);
+            txtSchoolShortName.Name = "txtSchoolShortName";
+            txtSchoolShortName.Size = new Size(80, 23);
+            txtSchoolShortName.TabIndex = 19;
+            txtSchoolShortName.Text = "SC";
             // 
             // grpSummary
             // 
@@ -296,9 +390,9 @@ namespace ExcelToImageApp
             grpSummary.Controls.Add(lblMainStaffSummary);
             grpSummary.Controls.Add(lblMainStudentSummary);
             grpSummary.Dock = DockStyle.Fill;
-            grpSummary.Location = new Point(23, 131);
+            grpSummary.Location = new Point(23, 247);
             grpSummary.Name = "grpSummary";
-            grpSummary.Size = new Size(740, 70);
+            grpSummary.Size = new Size(900, 70);
             grpSummary.TabIndex = 9;
             grpSummary.TabStop = false;
             grpSummary.Text = "Data Summary";
@@ -344,14 +438,14 @@ namespace ExcelToImageApp
             lblMainStudentSummary.AutoSize = true;
             lblMainStudentSummary.Location = new Point(10, 40);
             lblMainStudentSummary.Name = "lblMainStudentSummary";
-            lblMainStudentSummary.Size = new Size(156, 15);
+            lblMainStudentSummary.Size = new Size(155, 15);
             lblMainStudentSummary.TabIndex = 4;
             lblMainStudentSummary.Text = "Student: 0 items (0 selected)";
             // 
             // lblLog
             // 
             lblLog.AutoSize = true;
-            lblLog.Location = new Point(23, 184);
+            lblLog.Location = new Point(23, 320);
             lblLog.Name = "lblLog";
             lblLog.Size = new Size(30, 15);
             lblLog.TabIndex = 7;
@@ -361,9 +455,9 @@ namespace ExcelToImageApp
             // 
             mainLayout.SetColumnSpan(rtbLog, 3);
             rtbLog.Dock = DockStyle.Fill;
-            rtbLog.Location = new Point(23, 202);
+            rtbLog.Location = new Point(23, 549);
             rtbLog.Name = "rtbLog";
-            rtbLog.Size = new Size(740, 341);
+            rtbLog.Size = new Size(900, 1);
             rtbLog.TabIndex = 8;
             rtbLog.Text = "";
             // 
@@ -412,7 +506,7 @@ namespace ExcelToImageApp
             classTopPanel.Dock = DockStyle.Fill;
             classTopPanel.Location = new Point(13, 13);
             classTopPanel.Name = "classTopPanel";
-            classTopPanel.Size = new Size(160, 109);
+            classTopPanel.Size = new Size(160, 138);
             classTopPanel.TabIndex = 0;
             // 
             // btnGenerateClass
@@ -424,6 +518,7 @@ namespace ExcelToImageApp
             btnGenerateClass.TabIndex = 0;
             btnGenerateClass.Text = "Generate Images";
             btnGenerateClass.UseVisualStyleBackColor = true;
+            btnGenerateClass.Enabled = false;
             btnGenerateClass.Click += BtnGenerateClass_Click;
             // 
             // chkSelectAllClass
@@ -476,6 +571,7 @@ namespace ExcelToImageApp
             btnBrowseOutputClass.Text = "...";
             btnBrowseOutputClass.UseVisualStyleBackColor = true;
             btnBrowseOutputClass.Click += BtnBrowseOutputClass_Click;
+            classTopPanel.SetFlowBreak(btnBrowseOutputClass, true);
             // 
             // lblClassFilenamePattern
             // 
@@ -483,7 +579,7 @@ namespace ExcelToImageApp
             lblClassFilenamePattern.Location = new Point(39, 130);
             lblClassFilenamePattern.Name = "lblClassFilenamePattern";
             lblClassFilenamePattern.Padding = new Padding(0, 5, 0, 0);
-            lblClassFilenamePattern.Size = new Size(106, 20);
+            lblClassFilenamePattern.Size = new Size(99, 20);
             lblClassFilenamePattern.TabIndex = 6;
             lblClassFilenamePattern.Text = "Filename Pattern:";
             // 
@@ -491,22 +587,18 @@ namespace ExcelToImageApp
             // 
             cmbClassFilenamePattern.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbClassFilenamePattern.FormattingEnabled = true;
-            cmbClassFilenamePattern.Items.AddRange(new object[] {
-                "{CLASSNO}{SEPA}{SEQNO}.{EXT}",
-                "{SEQNO}{SEPA}{CLASSNO}.{EXT}",
-                "{CLASSNO}{SEPA}{SEQNO3}.{EXT}",
-                "{SEQNO3}{SEPA}{CLASSNO}.{EXT}"
-            });
-            cmbClassFilenamePattern.Location = new Point(151, 128);
+            cmbClassFilenamePattern.Items.AddRange(new object[] { "{CLASS}{SEPA}{SEQNO}.{EXT}", "{SEQNO}{SEPA}{CLASS}.{EXT}", "{CLASS}{SEPA}{SEQNO3}.{EXT}", "{SEQNO3}{SEPA}{SHORTSCHOOL}{SEPA}{CLASS}.{EXT}", "IMG{SEPA}{CLASS}{SEPA}{SEQNO}.{EXT}" });
+            cmbClassFilenamePattern.Location = new Point(3, 162);
             cmbClassFilenamePattern.Name = "cmbClassFilenamePattern";
             cmbClassFilenamePattern.Size = new Size(180, 23);
             cmbClassFilenamePattern.TabIndex = 7;
             cmbClassFilenamePattern.SelectedIndex = 3;
+            classTopPanel.SetFlowBreak(cmbClassFilenamePattern, true);
             // 
             // lblClassSummary
             // 
             lblClassSummary.AutoSize = true;
-            lblClassSummary.Location = new Point(39, 130);
+            lblClassSummary.Location = new Point(3, 188);
             lblClassSummary.Name = "lblClassSummary";
             lblClassSummary.Padding = new Padding(0, 5, 0, 0);
             lblClassSummary.Size = new Size(107, 20);
@@ -518,7 +610,7 @@ namespace ExcelToImageApp
             clbClasses.CheckOnClick = true;
             clbClasses.Dock = DockStyle.Fill;
             clbClasses.FormattingEnabled = true;
-            clbClasses.Location = new Point(13, 128);
+            clbClasses.Location = new Point(13, 157);
             clbClasses.Name = "clbClasses";
             clbClasses.Size = new Size(77, 1);
             clbClasses.TabIndex = 1;
@@ -562,6 +654,8 @@ namespace ExcelToImageApp
             groupTopPanel.Controls.Add(lblOutputFolderGroup);
             groupTopPanel.Controls.Add(txtOutputFolderGroup);
             groupTopPanel.Controls.Add(btnBrowseOutputGroup);
+            groupTopPanel.Controls.Add(lblGroupFilenamePattern);
+            groupTopPanel.Controls.Add(cmbGroupFilenamePattern);
             groupTopPanel.Controls.Add(lblGroupSummary);
             groupTopPanel.Dock = DockStyle.Fill;
             groupTopPanel.Location = new Point(13, 13);
@@ -578,6 +672,7 @@ namespace ExcelToImageApp
             btnGenerateGroup.TabIndex = 0;
             btnGenerateGroup.Text = "Generate Images";
             btnGenerateGroup.UseVisualStyleBackColor = true;
+            btnGenerateGroup.Enabled = false;
             btnGenerateGroup.Click += BtnGenerateGroup_Click;
             // 
             // chkSelectAllGroup
@@ -631,6 +726,27 @@ namespace ExcelToImageApp
             btnBrowseOutputGroup.UseVisualStyleBackColor = true;
             btnBrowseOutputGroup.Click += BtnBrowseOutputGroup_Click;
             // 
+            // lblGroupFilenamePattern
+            // 
+            lblGroupFilenamePattern.AutoSize = true;
+            lblGroupFilenamePattern.Location = new Point(39, 130);
+            lblGroupFilenamePattern.Name = "lblGroupFilenamePattern";
+            lblGroupFilenamePattern.Padding = new Padding(0, 5, 0, 0);
+            lblGroupFilenamePattern.Size = new Size(106, 20);
+            lblGroupFilenamePattern.TabIndex = 6;
+            lblGroupFilenamePattern.Text = "Filename Pattern:";
+            // 
+            // cmbGroupFilenamePattern
+            // 
+            cmbGroupFilenamePattern.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbGroupFilenamePattern.FormattingEnabled = true;
+            cmbGroupFilenamePattern.Items.AddRange(new object[] {"{GROUP}{SEPA}{SEQNO}.{EXT}","{GROUP}{SEPA}{SEQNO3}.{EXT}"});
+            cmbGroupFilenamePattern.Location = new Point(151, 128);
+            cmbGroupFilenamePattern.Name = "cmbGroupFilenamePattern";
+            cmbGroupFilenamePattern.Size = new Size(180, 23);
+            cmbGroupFilenamePattern.TabIndex = 7;
+            cmbGroupFilenamePattern.SelectedIndex = 0;
+            // 
             // lblGroupSummary
             // 
             lblGroupSummary.AutoSize = true;
@@ -655,9 +771,10 @@ namespace ExcelToImageApp
             // tabStudent
             // 
             tabStudent.Controls.Add(_studentControl);
+            _studentControl.GenerateRequested += StudentControl_GenerateRequested;
             tabStudent.Location = new Point(4, 24);
             tabStudent.Name = "tabStudent";
-            tabStudent.Size = new Size(792, 572);
+            tabStudent.Size = new Size(192, 72);
             tabStudent.TabIndex = 3;
             tabStudent.Text = "Student";
             tabStudent.UseVisualStyleBackColor = true;
@@ -667,13 +784,15 @@ namespace ExcelToImageApp
             _studentControl.Dock = DockStyle.Fill;
             _studentControl.Location = new Point(0, 0);
             _studentControl.Name = "_studentControl";
-            _studentControl.Size = new Size(792, 572);
+            _studentControl.Size = new Size(192, 72);
             _studentControl.TabIndex = 0;
             _studentControl.SelectionChanged += StudentControl_SelectionChanged;
             // 
             // tabStaff
             // 
             tabStaff.Controls.Add(_staffControl);
+            _staffControl.GenerateRequested += StaffControl_GenerateRequested;
+            _staffControl.SelectionChanged += StaffControl_SelectionChanged;
             tabStaff.Location = new Point(4, 24);
             tabStaff.Name = "tabStaff";
             tabStaff.Size = new Size(192, 72);
@@ -728,6 +847,8 @@ namespace ExcelToImageApp
             ccaTopPanel.Controls.Add(lblOutputFolderCCA);
             ccaTopPanel.Controls.Add(txtOutputFolderCCA);
             ccaTopPanel.Controls.Add(btnBrowseOutputCCA);
+            ccaTopPanel.Controls.Add(lblCCAFilenamePattern);
+            ccaTopPanel.Controls.Add(cmbCCAFilenamePattern);
             ccaTopPanel.Controls.Add(lblCCASummary);
             ccaTopPanel.Dock = DockStyle.Fill;
             ccaTopPanel.Location = new Point(13, 13);
@@ -744,6 +865,7 @@ namespace ExcelToImageApp
             btnGenerateCCA.TabIndex = 0;
             btnGenerateCCA.Text = "Generate Images";
             btnGenerateCCA.UseVisualStyleBackColor = true;
+            btnGenerateCCA.Enabled = false;
             btnGenerateCCA.Click += BtnGenerateCCA_Click;
             // 
             // chkSelectAllCCA
@@ -797,6 +919,27 @@ namespace ExcelToImageApp
             btnBrowseOutputCCA.UseVisualStyleBackColor = true;
             btnBrowseOutputCCA.Click += BtnBrowseOutputCCA_Click;
             // 
+            // lblCCAFilenamePattern
+            // 
+            lblCCAFilenamePattern.AutoSize = true;
+            lblCCAFilenamePattern.Location = new Point(39, 130);
+            lblCCAFilenamePattern.Name = "lblCCAFilenamePattern";
+            lblCCAFilenamePattern.Padding = new Padding(0, 5, 0, 0);
+            lblCCAFilenamePattern.Size = new Size(106, 20);
+            lblCCAFilenamePattern.TabIndex = 6;
+            lblCCAFilenamePattern.Text = "Filename Pattern:";
+            // 
+            // cmbCCAFilenamePattern
+            // 
+            cmbCCAFilenamePattern.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCCAFilenamePattern.FormattingEnabled = true;
+            cmbCCAFilenamePattern.Items.AddRange(new object[] {"{CCA}{SEPA}{SEQNO}.{EXT}","{CCA}{SEPA}{SEQNO3}.{EXT}"});
+            cmbCCAFilenamePattern.Location = new Point(151, 128);
+            cmbCCAFilenamePattern.Name = "cmbCCAFilenamePattern";
+            cmbCCAFilenamePattern.Size = new Size(180, 23);
+            cmbCCAFilenamePattern.TabIndex = 7;
+            cmbCCAFilenamePattern.SelectedIndex = 0;
+            // 
             // lblCCASummary
             // 
             lblCCASummary.AutoSize = true;
@@ -824,6 +967,11 @@ namespace ExcelToImageApp
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(960, 600);
             Controls.Add(tabControl);
+            statusStrip = new StatusStrip();
+            statusLabel = new ToolStripStatusLabel();
+            statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { statusLabel });
+            statusLabel.Text = "Ready.";
+            Controls.Add(statusStrip);
             Name = "MainForm";
             Text = "Excel to Image Converter";
             tabControl.ResumeLayout(false);
@@ -842,6 +990,7 @@ namespace ExcelToImageApp
             groupLayout.PerformLayout();
             groupTopPanel.ResumeLayout(false);
             groupTopPanel.PerformLayout();
+            tabStudent.ResumeLayout(false);
             tabStaff.ResumeLayout(false);
             tabCCA.ResumeLayout(false);
             ccaLayout.ResumeLayout(false);
@@ -871,6 +1020,7 @@ namespace ExcelToImageApp
         private System.Windows.Forms.Label lblMainClassSummary;
         private System.Windows.Forms.Label lblClassSummary;
         private System.Windows.Forms.Button btnGenerateAll;
+        private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.Label lblMainGroupSummary;
         private System.Windows.Forms.Label lblMainCCASummary;
 
@@ -885,6 +1035,8 @@ namespace ExcelToImageApp
         private System.Windows.Forms.Button btnBrowseOutputGroup;
         private System.Windows.Forms.Label lblGroupSummary;
         private System.Windows.Forms.CheckedListBox clbGroups;
+        private System.Windows.Forms.Label lblGroupFilenamePattern;
+        private System.Windows.Forms.ComboBox cmbGroupFilenamePattern;
         private System.Windows.Forms.TabPage tabGroup;
         private System.Windows.Forms.TabPage tabClass;
         private System.Windows.Forms.TableLayoutPanel classLayout;
@@ -910,15 +1062,25 @@ namespace ExcelToImageApp
         private System.Windows.Forms.Button btnBrowseOutputCCA;
         private System.Windows.Forms.Label lblCCASummary;
         private System.Windows.Forms.CheckedListBox clbCCAs;
+        private System.Windows.Forms.Label lblCCAFilenamePattern;
+        private System.Windows.Forms.ComboBox cmbCCAFilenamePattern;
         private System.Windows.Forms.Label lblMainStaffSummary;
         private System.Windows.Forms.Label lblMainStudentSummary;
         private ExcelToImageApp.Controls.StaffControl _staffControl;
         private ExcelToImageApp.Controls.StudentControl _studentControl;
         private System.Windows.Forms.Label lblReferenceSubfolder;
         private System.Windows.Forms.TextBox txtReferenceSubfolder;
+        private System.Windows.Forms.CheckBox chkCopyToAll;
         private System.Windows.Forms.Label lblClassFilenamePattern;
         private System.Windows.Forms.ComboBox cmbClassFilenamePattern;
         private System.Windows.Forms.Label lblSeparator;
         private System.Windows.Forms.ComboBox cmbSeparator;
+        private System.Windows.Forms.CheckBox chkUppercase;
+        private System.Windows.Forms.Label lblSchoolName;
+        private System.Windows.Forms.TextBox txtSchoolName;
+        private System.Windows.Forms.Label lblSchoolShortName;
+        private System.Windows.Forms.TextBox txtSchoolShortName;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
     }
 }
